@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Log_Lite.Builder;
+using Log_Lite.FileArchive.Archiver;
+using Log_Lite.FileArchive.Checker;
+using System;
 using System.IO;
 
 namespace Log_Lite.LogWriter
@@ -9,15 +12,35 @@ namespace Log_Lite.LogWriter
         private string directoryPath;
         private string filePath;
 
+        private IArchiveNecessityChecker archiveNecessityChecker;
+        private IFileArchiver fileArchiver;
 
-        public FileLogWriter() : this("Log.txt", AppDomain.CurrentDomain.BaseDirectory + "/") { }
 
-        public FileLogWriter(string fileName, string directoryPath)
+        public FileLogWriter() : this(Builder())
+        { }
+
+        public FileLogWriter(string fileName,
+            string directoryPath,
+            IArchiveNecessityChecker archiveNecessityChecker,
+            IFileArchiver fileArchiver)
         {
             this.fileName = fileName;
             this.directoryPath = directoryPath;
             filePath = directoryPath + fileName;
+
+            this.archiveNecessityChecker = archiveNecessityChecker;
+            this.archiveNecessityChecker.SetFilePath(filePath);
+
+            this.fileArchiver = fileArchiver;
+            this.fileArchiver.SetPaths(filePath, directoryPath);
         }
+
+        internal FileLogWriter(FileLogWriterBuilder builder)
+            : this(builder.FileName,
+                  builder.DirectoryPath,
+                  builder.ArchiveNecessityChecker,
+                  builder.FileArchiver)
+        { }
 
 
         public void Write(string log)
@@ -28,12 +51,27 @@ namespace Log_Lite.LogWriter
                 {
                     writer.WriteLine(log);
                 }
-                // TODO: check if backup is needed
+
+                if (archiveNecessityChecker?.HaveToArchive() == true)
+                {
+                    fileArchiver?.Archive();
+                    ClearLogFile();
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        private void ClearLogFile()
+        {
+            File.WriteAllText(filePath, string.Empty);
+        }
+
+        public static FileLogWriterBuilder Builder()
+        {
+            return new FileLogWriterBuilder();
         }
     }
 }

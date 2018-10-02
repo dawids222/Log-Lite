@@ -40,7 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builder\FileLogWriterBuilder.cs" />
     <Compile Include="Enum\LogType.cs" />
+    <Compile Include="FileArchive\Archiver\FileArchiver.cs" />
+    <Compile Include="FileArchive\Archiver\IFileArchiver.cs" />
+    <Compile Include="FileArchive\Checker\IArchiveNecessityChecker.cs" />
+    <Compile Include="FileArchive\Checker\SizeArchiveNecessityChecker.cs" />
     <Compile Include="LogCreator\ILogCreator.cs" />
     <Compile Include="LogCreator\LogCreator.cs" />
     <Compile Include="Logger\AsyncLogger.cs" />

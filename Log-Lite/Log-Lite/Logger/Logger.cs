@@ -12,6 +12,7 @@ namespace Log_Lite.Logger
         protected object lockObject = new object();
 
 
+        // TODO: Czy domyślne writer powinien byc konsolowy?
         public Logger() :
             this(new LogCreator.LogCreator(), new ConsoleLogWriter())
         { }

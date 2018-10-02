@@ -1,5 +1,4 @@
 ﻿using Log_Lite.Logger;
-using Log_Lite.LogWriter;
 
 namespace ConsoleTest
 {
@@ -13,12 +12,16 @@ namespace ConsoleTest
             {
                 if (instance == null)
                 {
-                    var logWriter = new FileLogWriter();
-                    instance = new Logger();
+                    instance = CreateLogger();
                 }
 
                 return instance;
             }
+        }
+
+        private static ILogger CreateLogger()
+        {
+            return new AsyncLogger();
         }
     }
 }
