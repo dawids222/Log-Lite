@@ -1,5 +1,5 @@
-﻿using Log_Lite.LogCreator;
-using Log_Lite.Logger;
+﻿using Log_Lite.Logger;
+using Log_Lite.LogWriter;
 
 namespace ConsoleTest
 {
@@ -22,8 +22,8 @@ namespace ConsoleTest
 
         private static ILogger CreateLogger()
         {
-            var creator = new LogCreator();
-            return new Logger(creator);
+            var fileWriter = new FileLogWriter();
+            return new Logger(fileWriter);
         }
     }
 }

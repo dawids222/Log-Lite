@@ -1,12 +1,15 @@
 ﻿using Log_Lite.Enum;
 using Log_Lite.LogCreator;
 using Log_Lite.LogWriter;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Log_Lite.Logger
 {
     public class AsyncLogger : Logger
     {
+        static SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
+
         public AsyncLogger() : base()
         { }
 
@@ -23,15 +26,19 @@ namespace Log_Lite.Logger
         { }
 
 
-        protected override void Log(object message, LogType type)
+        protected override async void Log(object message, LogType type)
         {
-            lock (lockObject)
+            await semaphoreSlim.WaitAsync();
+            try
             {
                 var invokerInfo = GetInvokerInfo();
-
                 var loggingTask = new Task(() => HandleLogging(message, type, invokerInfo));
                 loggingTask.Start();
-                loggingTask.Wait();
+                await loggingTask;
+            }
+            finally
+            {
+                semaphoreSlim.Release();
             }
         }
     }
