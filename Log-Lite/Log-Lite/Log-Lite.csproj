@@ -54,6 +54,8 @@
     <Compile Include="LogWriter\ConsoleLogWriter.cs" />
     <Compile Include="LogWriter\FileLogWriter.cs" />
     <Compile Include="LogWriter\ILogWriter.cs" />
+    <Compile Include="Model\IInvokerModel.cs" />
+    <Compile Include="Model\InvokerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

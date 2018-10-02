@@ -27,7 +27,9 @@ namespace Log_Lite.Logger
         {
             lock (lockObject)
             {
-                var loggingTask = new Task(() => HandleLogging(message, type));
+                var invokerInfo = GetInvokerInfo();
+
+                var loggingTask = new Task(() => HandleLogging(message, type, invokerInfo));
                 loggingTask.Start();
                 loggingTask.Wait();
             }

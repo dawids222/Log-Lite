@@ -1,25 +1,15 @@
 ﻿using Log_Lite.Enum;
+using Log_Lite.Model;
 using System;
-using System.Diagnostics;
 
 namespace Log_Lite.LogCreator
 {
     public class LogCreator : ILogCreator
     {
-        private uint positionInStackFrame;
-
-        public LogCreator() : this(5)
-        { }
-
-        public LogCreator(uint positionInStackFrame)
-        {
-            this.positionInStackFrame = positionInStackFrame;
-        }
-
-        public string Create(LogType type, object message)
+        public string Create(LogType type, IInvokerModel invokerInfo, object message)
         {
             var spaces = CreateSpaces(type);
-            return $"{DateTime.Now}   {type}   {spaces}{GetInvokerInfo()} -> {message}";
+            return $"{DateTime.Now}   {type}   {spaces}{invokerInfo} -> {message}";
         }
 
         private string CreateSpaces(LogType type)
@@ -32,15 +22,6 @@ namespace Log_Lite.LogCreator
                 spaces = "   ";
 
             return spaces;
-        }
-
-        private string GetInvokerInfo()
-        {
-            StackFrame frame = new StackFrame((int)positionInStackFrame);
-            var method = frame.GetMethod();
-            var type = method.DeclaringType.Name;
-            var methodName = method.Name;
-            return type + "." + methodName;
         }
     }
 }

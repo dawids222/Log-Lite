@@ -1,6 +1,7 @@
 ﻿using Log_Lite.Enum;
 using Log_Lite.LogCreator;
 using Log_Lite.LogWriter;
+using Log_Lite.Model;
 using System.Collections.Generic;
 
 namespace Log_Lite.Logger
@@ -56,18 +57,26 @@ namespace Log_Lite.Logger
         {
             lock (lockObject)
             {
-                HandleLogging(message, type);
+                var invokerInfo = GetInvokerInfo();
+                HandleLogging(message, type, invokerInfo);
             }
         }
 
-        protected void HandleLogging(object message, LogType type)
+        protected void HandleLogging(object message, LogType type, IInvokerModel invokerInfo)
         {
-            var log = logCreator.Create(type, message);
+            var log = logCreator.Create(type, invokerInfo, message);
 
             foreach (var writer in logWriters)
             {
                 writer.Write(log);
             }
+        }
+
+        protected IInvokerModel GetInvokerInfo()
+        {
+            var invoker = new InvokerModel();
+            invoker.GetCurrentInvoker();
+            return invoker;
         }
     }
 }
