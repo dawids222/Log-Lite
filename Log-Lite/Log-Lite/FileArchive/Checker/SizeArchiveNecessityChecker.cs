@@ -1,11 +1,9 @@
-﻿using System.IO;
-
-namespace Log_Lite.FileArchive.Checker
+﻿namespace Log_Lite.FileArchive.Checker
 {
-    public class SizeArchiveNecessityChecker : IArchiveNecessityChecker
+    public class SizeArchiveNecessityChecker : BaseArchiveNecessityChecker
     {
         private double maxLogSizeInMB;
-        private FileInfo fileInfo;
+
         private double fileSizeInMB
         {
             get
@@ -22,14 +20,9 @@ namespace Log_Lite.FileArchive.Checker
         }
 
 
-        public bool HaveToArchive()
+        public override bool HaveToArchive()
         {
             return fileSizeInMB >= maxLogSizeInMB;
-        }
-
-        public void SetFilePath(string file)
-        {
-            this.fileInfo = new FileInfo(file);
         }
     }
 }

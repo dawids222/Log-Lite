@@ -22,8 +22,8 @@ namespace ConsoleTest
 
         private static ILogger CreateLogger()
         {
-            var fileWriter = new FileLogWriter();
-            return new Logger(fileWriter);
+            var writer = new ConsoleLogWriter();
+            return new Logger(writer);
         }
     }
 }

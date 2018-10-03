@@ -44,6 +44,8 @@
     <Compile Include="Enum\LogType.cs" />
     <Compile Include="FileArchive\Archiver\FileArchiver.cs" />
     <Compile Include="FileArchive\Archiver\IFileArchiver.cs" />
+    <Compile Include="FileArchive\Checker\BaseArchiveNecessityChecker.cs" />
+    <Compile Include="FileArchive\Checker\DaysArchiveNecessityChecker.cs" />
     <Compile Include="FileArchive\Checker\IArchiveNecessityChecker.cs" />
     <Compile Include="FileArchive\Checker\SizeArchiveNecessityChecker.cs" />
     <Compile Include="LogCreator\ILogCreator.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="LogWriter\ILogWriter.cs" />
     <Compile Include="Model\IInvokerModel.cs" />
     <Compile Include="Model\InvokerModel.cs" />
+    <Compile Include="Model\LogInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -4,7 +4,5 @@
     {
         string Class { get; }
         string Method { get; }
-
-        void GetCurrentInvoker();
     }
 }

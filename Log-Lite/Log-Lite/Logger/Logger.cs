@@ -13,9 +13,9 @@ namespace Log_Lite.Logger
         protected object lockObject = new object();
 
 
-        // TODO: Czy domyślne writer powinien byc konsolowy?
+        #region ctors
         public Logger() :
-            this(new LogCreator.LogCreator(), new ConsoleLogWriter())
+            this(new LogCreator.LogCreator(), new FileLogWriter())
         { }
 
         public Logger(params ILogWriter[] logWriters) :
@@ -23,7 +23,7 @@ namespace Log_Lite.Logger
         { }
 
         public Logger(ILogCreator logCreator) :
-            this(logCreator, new ConsoleLogWriter())
+            this(logCreator, new FileLogWriter())
         { }
 
         public Logger(ILogCreator logCreator, params ILogWriter[] logWriters)
@@ -31,6 +31,7 @@ namespace Log_Lite.Logger
             this.logCreator = logCreator;
             this.logWriters = new List<ILogWriter>(logWriters);
         }
+        #endregion
 
 
         public void Error(object message)
@@ -58,13 +59,14 @@ namespace Log_Lite.Logger
             lock (lockObject)
             {
                 var invokerInfo = GetInvokerInfo();
-                HandleLogging(message, type, invokerInfo);
+                var logInfo = new LogInfo(type, invokerInfo, message);
+                HandleLogging(logInfo);
             }
         }
 
-        protected void HandleLogging(object message, LogType type, IInvokerModel invokerInfo)
+        protected void HandleLogging(LogInfo logInfo)
         {
-            var log = logCreator.Create(type, invokerInfo, message);
+            var log = logCreator.Create(logInfo);
 
             foreach (var writer in logWriters)
             {
@@ -74,9 +76,7 @@ namespace Log_Lite.Logger
 
         protected IInvokerModel GetInvokerInfo()
         {
-            var invoker = new InvokerModel();
-            invoker.GetCurrentInvoker();
-            return invoker;
+            return new InvokerModel();
         }
     }
 }

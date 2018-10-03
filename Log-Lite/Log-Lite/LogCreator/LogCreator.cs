@@ -6,10 +6,10 @@ namespace Log_Lite.LogCreator
 {
     public class LogCreator : ILogCreator
     {
-        public string Create(LogType type, IInvokerModel invokerInfo, object message)
+        public string Create(LogInfo logInfo)
         {
-            var spaces = CreateSpaces(type);
-            return $"{DateTime.Now}   {type}   {spaces}{invokerInfo} -> {message}";
+            var spaces = CreateSpaces(logInfo.LogType);
+            return $"{DateTime.Now}   {logInfo.LogType}   {spaces}{logInfo.InvokerInfo} -> {logInfo.Message}";
         }
 
         private string CreateSpaces(LogType type)

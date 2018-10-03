@@ -47,15 +47,15 @@ namespace Log_Lite.LogWriter
         {
             try
             {
-                using (StreamWriter writer = File.AppendText(filePath))
-                {
-                    writer.WriteLine(log);
-                }
-
                 if (archiveNecessityChecker?.HaveToArchive() == true)
                 {
                     fileArchiver?.Archive();
                     ClearLogFile();
+                }
+
+                using (StreamWriter writer = File.AppendText(filePath))
+                {
+                    writer.WriteLine(log);
                 }
             }
             catch (Exception ex)

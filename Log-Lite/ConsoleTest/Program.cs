@@ -6,16 +6,18 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            var watch = System.Diagnostics.Stopwatch.StartNew();
+            MyLogger.Instance.Info("Test");
 
-            for (int i = 0; i < 10000; i++)
-            {
-                MyLogger.Instance.Info("Test");
-            }
+            //var watch = System.Diagnostics.Stopwatch.StartNew();
 
-            watch.Stop();
-            var elapsedMs = watch.ElapsedMilliseconds;
-            Console.WriteLine(elapsedMs);
+            //for (int i = 0; i < 10000; i++)
+            //{
+            //    MyLogger.Instance.Info("Test");
+            //}
+
+            //watch.Stop();
+            //var elapsedMs = watch.ElapsedMilliseconds;
+            //Console.WriteLine(elapsedMs);
 
             Console.ReadKey();
         }
