@@ -11,7 +11,9 @@ namespace Log_Lite.FileArchive.Checker
             get
             {
                 fileInfo.Refresh();
-                var timeFromLastWrite = DateTime.Now - fileInfo.LastWriteTime;
+                var currentDate = DateTime.Now.Date;
+                var lastWriteDate = fileInfo.LastWriteTime.Date;
+                var timeFromLastWrite = currentDate - lastWriteDate;
                 return timeFromLastWrite.Days;
             }
         }
