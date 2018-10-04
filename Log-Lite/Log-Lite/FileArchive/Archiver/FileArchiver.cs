@@ -5,9 +5,9 @@ namespace Log_Lite.FileArchive.Archiver
 {
     public class FileArchiver : IFileArchiver
     {
-        private string archiveDirectoryName;
-        private string fileToArchivePath;
-        private string directoryPath;
+        public string ArchiveDirectoryName { get; private set; }
+        public string FileToArchivePath { get; private set; }
+        public string DirectoryPath { get; private set; }
 
 
         public FileArchiver() : this("archive")
@@ -15,27 +15,27 @@ namespace Log_Lite.FileArchive.Archiver
 
         public FileArchiver(string archiveDirectoryName)
         {
-            this.archiveDirectoryName = archiveDirectoryName;
+            this.ArchiveDirectoryName = archiveDirectoryName;
         }
 
 
         public void SetPaths(string fileToArchivePath, string directoryPath)
         {
-            this.fileToArchivePath = fileToArchivePath;
-            this.directoryPath = directoryPath;
+            this.FileToArchivePath = fileToArchivePath;
+            this.DirectoryPath = directoryPath;
         }
 
         public void Archive()
         {
             try
             {
-                var archiveDirectoryPath = directoryPath + archiveDirectoryName;
+                var archiveDirectoryPath = DirectoryPath + ArchiveDirectoryName;
 
                 if (!Directory.Exists(archiveDirectoryPath))
                     Directory.CreateDirectory(archiveDirectoryPath);
 
                 var archiveFilePath = $"{archiveDirectoryPath}/{CreateArchiveFileName()}.txt";
-                File.Copy(fileToArchivePath, archiveFilePath);
+                File.Copy(FileToArchivePath, archiveFilePath);
             }
             catch (Exception ex)
             {

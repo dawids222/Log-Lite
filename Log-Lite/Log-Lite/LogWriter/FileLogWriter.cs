@@ -8,14 +8,37 @@ namespace Log_Lite.LogWriter
 {
     public class FileLogWriter : ILogWriter
     {
+        #region Fields
         private string fileName;
         private string directoryPath;
         private string filePath;
+        #endregion
+        #region Properties
+        public string FileName
+        {
+            get { return fileName; }
+            set
+            {
+                fileName = value;
+                SetFilePath();
+                SetPathsInDependencies();
+            }
+        }
+        public string DirectoryPath
+        {
+            get { return directoryPath; }
+            set
+            {
+                directoryPath = value;
+                SetFilePath();
+                SetPathsInDependencies();
+            }
+        }
 
-        private IArchiveNecessityChecker archiveNecessityChecker;
-        private IFileArchiver fileArchiver;
-
-
+        public IArchiveNecessityChecker ArchiveNecessityChecker { get; set; }
+        public IFileArchiver FileArchiver { get; set; }
+        #endregion
+        #region Ctors
         public FileLogWriter() : this(Builder())
         { }
 
@@ -26,13 +49,12 @@ namespace Log_Lite.LogWriter
         {
             this.fileName = fileName;
             this.directoryPath = directoryPath;
-            filePath = directoryPath + fileName;
+            SetFilePath();
 
-            this.archiveNecessityChecker = archiveNecessityChecker;
-            this.archiveNecessityChecker.SetFilePath(filePath);
+            this.ArchiveNecessityChecker = archiveNecessityChecker;
+            this.FileArchiver = fileArchiver;
 
-            this.fileArchiver = fileArchiver;
-            this.fileArchiver.SetPaths(filePath, directoryPath);
+            SetPathsInDependencies();
         }
 
         internal FileLogWriter(FileLogWriterBuilder builder)
@@ -41,15 +63,26 @@ namespace Log_Lite.LogWriter
                   builder.ArchiveNecessityChecker,
                   builder.FileArchiver)
         { }
+        #endregion
+        #region Methods
+        private void SetFilePath()
+        {
+            filePath = directoryPath + fileName;
+        }
 
+        private void SetPathsInDependencies()
+        {
+            ArchiveNecessityChecker?.SetFilePath(filePath);
+            FileArchiver?.SetPaths(filePath, directoryPath);
+        }
 
         public void Write(string log)
         {
             try
             {
-                if (archiveNecessityChecker?.HaveToArchive() == true)
+                if (ArchiveNecessityChecker?.HaveToArchive() == true)
                 {
-                    fileArchiver?.Archive();
+                    FileArchiver?.Archive();
                     ClearLogFile();
                 }
 
@@ -73,5 +106,6 @@ namespace Log_Lite.LogWriter
         {
             return new FileLogWriterBuilder();
         }
+        #endregion
     }
 }

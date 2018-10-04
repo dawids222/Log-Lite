@@ -1,4 +1,6 @@
-﻿namespace Log_Lite.FileArchive.Checker
+﻿using System.IO;
+
+namespace Log_Lite.FileArchive.Checker
 {
     public class SizeArchiveNecessityChecker : BaseArchiveNecessityChecker
     {
@@ -22,7 +24,14 @@
 
         public override bool HaveToArchive()
         {
-            return fileSizeInMB >= maxLogSizeInMB;
+            try
+            {
+                return fileSizeInMB >= maxLogSizeInMB;
+            }
+            catch (FileNotFoundException)
+            {
+                return false;
+            }
         }
     }
 }

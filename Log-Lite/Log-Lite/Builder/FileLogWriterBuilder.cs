@@ -9,7 +9,7 @@ namespace Log_Lite.Builder
     {
         public string FileName { get; private set; } = "Log.txt";
         public string DirectoryPath { get; private set; }
-            = AppDomain.CurrentDomain.BaseDirectory + "/";
+            = AppDomain.CurrentDomain.BaseDirectory;
         public IArchiveNecessityChecker ArchiveNecessityChecker { get; private set; }
             = new SizeArchiveNecessityChecker(1f);
         public IFileArchiver FileArchiver { get; private set; }

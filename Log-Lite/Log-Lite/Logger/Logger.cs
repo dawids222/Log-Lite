@@ -8,9 +8,10 @@ namespace Log_Lite.Logger
 {
     public class Logger : ILogger
     {
-        private ILogCreator logCreator;
-        private List<ILogWriter> logWriters;
-        protected object lockObject = new object();
+        protected static object lockObject = new object();
+
+        public ILogCreator LogCreator { get; set; }
+        public List<ILogWriter> LogWriters { get; set; }
 
 
         #region ctors
@@ -28,8 +29,8 @@ namespace Log_Lite.Logger
 
         public Logger(ILogCreator logCreator, params ILogWriter[] logWriters)
         {
-            this.logCreator = logCreator;
-            this.logWriters = new List<ILogWriter>(logWriters);
+            this.LogCreator = logCreator;
+            this.LogWriters = new List<ILogWriter>(logWriters);
         }
         #endregion
 
@@ -66,9 +67,9 @@ namespace Log_Lite.Logger
 
         protected void HandleLogging(LogInfo logInfo)
         {
-            var log = logCreator.Create(logInfo);
+            var log = LogCreator.Create(logInfo);
 
-            foreach (var writer in logWriters)
+            foreach (var writer in LogWriters)
             {
                 writer.Write(log);
             }
