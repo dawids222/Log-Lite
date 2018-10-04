@@ -5,6 +5,7 @@ namespace Log_Lite.FileArchive.Archiver
 {
     public class FileArchiver : IFileArchiver
     {
+        public string ArchiveFileSignature { get; set; } = "Archive";
         public string ArchiveDirectoryName { get; private set; }
         public string FileToArchivePath { get; private set; }
         public string DirectoryPath { get; private set; }
@@ -27,25 +28,19 @@ namespace Log_Lite.FileArchive.Archiver
 
         public void Archive()
         {
-            try
-            {
-                var archiveDirectoryPath = DirectoryPath + ArchiveDirectoryName;
+            var archiveDirectoryPath = DirectoryPath + ArchiveDirectoryName;
 
-                if (!Directory.Exists(archiveDirectoryPath))
-                    Directory.CreateDirectory(archiveDirectoryPath);
+            if (!Directory.Exists(archiveDirectoryPath))
+                Directory.CreateDirectory(archiveDirectoryPath);
 
-                var archiveFilePath = $"{archiveDirectoryPath}/{CreateArchiveFileName()}.txt";
-                File.Copy(FileToArchivePath, archiveFilePath);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            var archiveFilePath = $"{archiveDirectoryPath}/{CreateArchiveFileName()}.txt";
+            File.Copy(FileToArchivePath, archiveFilePath);
         }
 
         private string CreateArchiveFileName()
         {
-            return DateTime.Now.ToString().Replace(':', '.');
+            var currentDateTime = DateTime.Now.ToString().Replace(':', '.');
+            return $"{currentDateTime}_{ArchiveFileSignature}";
         }
     }
 }

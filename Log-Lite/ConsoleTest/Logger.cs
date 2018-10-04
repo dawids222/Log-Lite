@@ -23,11 +23,8 @@ namespace ConsoleTest
         private static ILogger CreateLogger()
         {
             var consoleWriter = new ConsoleLogWriter();
-            var fileWriter = new FileLogWriter();
-            fileWriter.FileName = "Log2.txt";
 
             var logger = new Logger();
-            logger.LogWriters.Add(fileWriter);
 
             return logger;
         }
