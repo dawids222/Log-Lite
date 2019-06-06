@@ -24,7 +24,7 @@ namespace ConsoleTest
         {
             var consoleWriter = new ConsoleLogWriter();
 
-            var logger = new Logger();
+            var logger = new Logger(consoleWriter);
 
             return logger;
         }

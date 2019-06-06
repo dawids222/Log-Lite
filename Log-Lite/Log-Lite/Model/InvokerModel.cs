@@ -6,17 +6,18 @@ namespace Log_Lite.Model
     {
         public string Class { get; private set; }
         public string Method { get; private set; }
+        private int StackPosition { get; } = 5;
 
 
-        public InvokerModel(uint positionInStack = 5)
+        public InvokerModel()
         {
-            GetCurrentInvoker(positionInStack);
+            GetCurrentInvoker();
         }
 
 
-        private void GetCurrentInvoker(uint positionInStack)
+        private void GetCurrentInvoker()
         {
-            StackFrame frame = new StackFrame((int)positionInStack);
+            StackFrame frame = new StackFrame(StackPosition);
             var method = frame.GetMethod();
             Class = method.DeclaringType.Name;
             Method = method.Name;

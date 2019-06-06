@@ -9,7 +9,7 @@ namespace Log_Lite.LogCreator
         public string Create(LogInfo logInfo)
         {
             var spaces = CreateSpaces(logInfo.LogType);
-            return $"{DateTime.Now}   {logInfo.LogType}   {spaces}{logInfo.InvokerInfo} -> {logInfo.Message}";
+            return $"{DateTime.Now}   {logInfo.LogType}   {spaces}{logInfo.InvokerInfo}  ->  {logInfo.Message}";
         }
 
         private string CreateSpaces(LogType type)

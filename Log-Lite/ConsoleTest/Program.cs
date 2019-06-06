@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Log_Lite.Logger;
+using Log_Lite.LogWriter;
+using System;
 
 namespace ConsoleTest
 {
@@ -6,20 +8,42 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            MyLogger.Instance.Info("Test");
+            var writer = new ConsoleLogWriter();
+            var logger = new Logger(writer);
+            logger.Info("no i jak?");
+            MyLogger.Instance.Info("Rzpoczęcie działania programu");
 
-            var watch = System.Diagnostics.Stopwatch.StartNew();
+            var x = GetNumberFromUser();
+            var y = GetNumberFromUser();
 
-            for (int i = 0; i < 10000; i++)
-            {
-                MyLogger.Instance.Info("Test");
-            }
-
-            watch.Stop();
-            var elapsedMs = watch.ElapsedMilliseconds;
-            Console.WriteLine(elapsedMs);
+            var divided = Divide(x, y);
+            Console.WriteLine(divided);
 
             Console.ReadKey();
+            MyLogger.Instance.Info("Zakończenie działania programu");
+        }
+
+        static int GetNumberFromUser()
+        {
+            Console.WriteLine("Prosze podać liczbę");
+            var number = Convert.ToInt32(Console.ReadLine());
+
+            MyLogger.Instance.Info($"Użytkownik wpisał {number}");
+
+            return number;
+        }
+
+        static int Divide(int devided, int divider)
+        {
+            try
+            {
+                return devided / divider;
+            }
+            catch (DivideByZeroException)
+            {
+                MyLogger.Instance.Error($"Próba dzielenia przez 0!");
+                return 0;
+            }
         }
     }
 }
