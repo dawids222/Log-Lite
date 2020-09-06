@@ -2,6 +2,7 @@
 using Log_Lite.LogCreator;
 using Log_Lite.LogWriter;
 using Log_Lite.Model;
+using Log_Lite.Provider.InvokerModel;
 using System.Collections.Generic;
 
 namespace Log_Lite.Logger
@@ -12,6 +13,7 @@ namespace Log_Lite.Logger
 
         public ILogCreator LogCreator { get; set; }
         public List<ILogWriter> LogWriters { get; set; }
+        public IInvokerModelProvider InvokerModelProvider { get; set; } = new InvokerModelProvider();
 
 
         #region ctors
@@ -77,7 +79,7 @@ namespace Log_Lite.Logger
 
         protected IInvokerModel GetInvokerInfo()
         {
-            return new InvokerModel();
+            return InvokerModelProvider.GetCurrentInvoker();
         }
     }
 }
