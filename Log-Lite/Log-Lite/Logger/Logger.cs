@@ -1,5 +1,5 @@
 ﻿using Log_Lite.Enum;
-using Log_Lite.LogCreator;
+using Log_Lite.LogFormatter;
 using Log_Lite.LogWriter;
 using Log_Lite.Model;
 using Log_Lite.Provider.InvokerModel;

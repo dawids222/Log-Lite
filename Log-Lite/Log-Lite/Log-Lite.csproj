@@ -50,8 +50,8 @@
     <Compile Include="FileArchive\Checker\DaysArchiveNecessityChecker.cs" />
     <Compile Include="FileArchive\Checker\IArchiveNecessityChecker.cs" />
     <Compile Include="FileArchive\Checker\SizeArchiveNecessityChecker.cs" />
-    <Compile Include="LogCreator\ILogCreator.cs" />
-    <Compile Include="LogCreator\LogCreator.cs" />
+    <Compile Include="LogFormatter\ILogFormatter.cs" />
+    <Compile Include="LogFormatter\LogFormatter.cs" />
     <Compile Include="Logger\AsyncLogger.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Logger\Logger.cs" />

@@ -2,7 +2,7 @@
 using Log_Lite.Model;
 using System;
 
-namespace Log_Lite.LogCreator
+namespace Log_Lite.LogFormatter
 {
     public class BasicLogFormatter : ILogFormatter
     {
