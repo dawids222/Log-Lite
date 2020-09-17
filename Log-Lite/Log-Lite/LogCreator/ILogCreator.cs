@@ -2,7 +2,7 @@
 
 namespace Log_Lite.LogCreator
 {
-    public interface ILogCreator
+    public interface ILogFormatter
     {
         string Create(LogInfo logInfo);
     }

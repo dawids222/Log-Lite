@@ -11,28 +11,28 @@ namespace Log_Lite.Logger
     {
         protected static object lockObject = new object();
 
-        public ILogCreator LogCreator { get; set; }
+        public ILogFormatter LogFormatter { get; set; }
         public List<ILogWriter> LogWriters { get; set; }
         public IInvokerModelProvider InvokerModelProvider { get; set; } = new InvokerModelProvider();
 
 
         #region ctors
         public Logger() :
-            this(new LogCreator.LogCreator(), new FileLogWriter())
+            this(new BasicLogFormatter(), new FileLogWriter())
         { }
 
         public Logger(params ILogWriter[] logWriters) :
-            this(new LogCreator.LogCreator(), logWriters)
+            this(new BasicLogFormatter(), logWriters)
         { }
 
-        public Logger(ILogCreator logCreator) :
-            this(logCreator, new FileLogWriter())
+        public Logger(ILogFormatter logFormatter) :
+            this(logFormatter, new FileLogWriter())
         { }
 
-        public Logger(ILogCreator logCreator, params ILogWriter[] logWriters)
+        public Logger(ILogFormatter logFormatter, params ILogWriter[] logWriters)
         {
-            this.LogCreator = logCreator;
-            this.LogWriters = new List<ILogWriter>(logWriters);
+            LogFormatter = logFormatter;
+            LogWriters = new List<ILogWriter>(logWriters);
         }
         #endregion
 
@@ -69,7 +69,7 @@ namespace Log_Lite.Logger
 
         protected void HandleLogging(LogInfo logInfo)
         {
-            var log = LogCreator.Create(logInfo);
+            var log = LogFormatter.Create(logInfo);
 
             foreach (var writer in LogWriters)
             {

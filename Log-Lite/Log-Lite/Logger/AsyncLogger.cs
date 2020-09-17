@@ -20,12 +20,12 @@ namespace Log_Lite.Logger
             base(logWriters)
         { }
 
-        public AsyncLogger(ILogCreator logCreator) :
-            base(logCreator)
+        public AsyncLogger(ILogFormatter logFormatter) :
+            base(logFormatter)
         { }
 
-        public AsyncLogger(ILogCreator logCreator, params ILogWriter[] logWriters) :
-            base(logCreator, logWriters)
+        public AsyncLogger(ILogFormatter logFormatter, params ILogWriter[] logWriters) :
+            base(logFormatter, logWriters)
         { }
         #endregion
 

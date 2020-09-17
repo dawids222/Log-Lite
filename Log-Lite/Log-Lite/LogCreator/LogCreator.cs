@@ -4,7 +4,7 @@ using System;
 
 namespace Log_Lite.LogCreator
 {
-    public class LogCreator : ILogCreator
+    public class BasicLogFormatter : ILogFormatter
     {
         public string Create(LogInfo logInfo)
         {
