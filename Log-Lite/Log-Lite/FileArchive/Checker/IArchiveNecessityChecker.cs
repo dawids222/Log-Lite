@@ -3,6 +3,5 @@
     public interface IArchiveNecessityChecker
     {
         bool HaveToArchive();
-        void SetFilePath(string file);
     }
 }

@@ -1,6 +1,6 @@
-﻿using Log_Lite.Model;
+﻿using Log_Lite.Model.Invoker;
 
-namespace Log_Lite.Provider.InvokerModel
+namespace Log_Lite.Provider.Invoker
 {
     public interface IInvokerModelProvider
     {

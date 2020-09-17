@@ -72,7 +72,7 @@ namespace Log_Lite.LogWriter
 
         private void SetPathsInDependencies()
         {
-            ArchiveNecessityChecker?.SetFilePath(filePath);
+            //ArchiveNecessityChecker?.SetFilePath(filePath);
             FileArchiver?.SetPaths(filePath, directoryPath);
         }
 

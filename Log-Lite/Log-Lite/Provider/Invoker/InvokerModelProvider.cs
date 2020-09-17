@@ -1,8 +1,8 @@
 ﻿using Log_Lite.Exception;
-using Log_Lite.Model;
+using Log_Lite.Model.Invoker;
 using System.Diagnostics;
 
-namespace Log_Lite.Provider.InvokerModel
+namespace Log_Lite.Provider.Invoker
 {
     public class InvokerModelProvider : IInvokerModelProvider
     {
@@ -21,7 +21,7 @@ namespace Log_Lite.Provider.InvokerModel
                 var invokerMethod = frame.GetMethod();
                 var @class = invokerMethod.DeclaringType.Name;
                 var method = invokerMethod.Name;
-                return new Model.InvokerModel(@class, method);
+                return new InvokerModel(@class, method);
             }
             catch (System.NullReferenceException)
             {

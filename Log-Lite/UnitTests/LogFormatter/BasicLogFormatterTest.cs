@@ -1,6 +1,7 @@
 ﻿using Log_Lite.Enum;
 using Log_Lite.LogFormatter;
 using Log_Lite.Model;
+using Log_Lite.Model.Invoker;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 

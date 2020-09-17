@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Builder\FileLogWriterBuilder.cs" />
     <Compile Include="Enum\LogType.cs" />
+    <Compile Include="Enum\MemoryUnit.cs" />
+    <Compile Include="Enum\TimeUnit.cs" />
     <Compile Include="Exception\InvokerNotFoundExpection.cs" />
     <Compile Include="FileArchive\Archiver\FileArchiver.cs" />
     <Compile Include="FileArchive\Archiver\IFileArchiver.cs" />
@@ -58,12 +60,14 @@
     <Compile Include="LogWriter\ConsoleLogWriter.cs" />
     <Compile Include="LogWriter\FileLogWriter.cs" />
     <Compile Include="LogWriter\ILogWriter.cs" />
-    <Compile Include="Model\IInvokerModel.cs" />
-    <Compile Include="Model\InvokerModel.cs" />
+    <Compile Include="Model\File\IFileInfo.cs" />
+    <Compile Include="Model\File\SystemFileInfo.cs" />
+    <Compile Include="Model\Invoker\IInvokerModel.cs" />
+    <Compile Include="Model\Invoker\InvokerModel.cs" />
     <Compile Include="Model\LogInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Provider\InvokerModel\IInvokerModelProvider.cs" />
-    <Compile Include="Provider\InvokerModel\InvokerModelProvider.cs" />
+    <Compile Include="Provider\Invoker\IInvokerModelProvider.cs" />
+    <Compile Include="Provider\Invoker\InvokerModelProvider.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

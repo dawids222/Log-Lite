@@ -1,4 +1,4 @@
-﻿namespace Log_Lite.Model
+﻿namespace Log_Lite.Model.Invoker
 {
     public interface IInvokerModel
     {

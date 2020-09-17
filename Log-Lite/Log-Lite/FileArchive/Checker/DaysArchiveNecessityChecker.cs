@@ -1,33 +1,34 @@
-﻿using System;
+﻿using Log_Lite.Enum;
+using Log_Lite.Model.File;
+using System;
 
 namespace Log_Lite.FileArchive.Checker
 {
     public class DaysArchiveNecessityChecker : BaseArchiveNecessityChecker
     {
-        private uint maxLogAgeInDays;
+        private uint MaxLogAge { get; }
 
-        private int fileAgeInDays
+        private int FileAge => GetFileAge();
+
+        public TimeUnit TimeUnit { get; }
+
+        public DaysArchiveNecessityChecker(IFileInfo fileInfo, uint maxLogAge, TimeUnit timeUnit)
+            : base(fileInfo)
         {
-            get
-            {
-                fileInfo.Refresh();
-                var currentDate = DateTime.Now.Date;
-                var lastWriteDate = fileInfo.LastWriteTime.Date;
-                var timeFromLastWrite = currentDate - lastWriteDate;
-                return timeFromLastWrite.Days;
-            }
+            MaxLogAge = maxLogAge;
+            TimeUnit = timeUnit;
         }
-
-
-        public DaysArchiveNecessityChecker(uint maxLogAgeInDays)
-        {
-            this.maxLogAgeInDays = maxLogAgeInDays;
-        }
-
 
         public override bool HaveToArchive()
         {
-            return fileAgeInDays > 0;
+            return FileAge >= MaxLogAge;
+        }
+
+        private int GetFileAge()
+        {
+            var fileAgeInTimeSpan = DateTime.Now - FileInfo.CreationTime;
+            var fileAgeInSeconds = (int)fileAgeInTimeSpan.TotalSeconds;
+            return fileAgeInSeconds / (int)TimeUnit;
         }
     }
 }

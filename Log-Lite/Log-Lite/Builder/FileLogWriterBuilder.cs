@@ -11,7 +11,6 @@ namespace Log_Lite.Builder
         public string DirectoryPath { get; private set; }
             = AppDomain.CurrentDomain.BaseDirectory;
         public IArchiveNecessityChecker ArchiveNecessityChecker { get; private set; }
-            = new SizeArchiveNecessityChecker(1f);
         public IFileArchiver FileArchiver { get; private set; }
             = new FileArchiver();
 

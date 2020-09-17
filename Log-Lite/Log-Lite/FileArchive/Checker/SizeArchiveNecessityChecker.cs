@@ -1,37 +1,25 @@
-﻿using System.IO;
+﻿using Log_Lite.Enum;
+using Log_Lite.Model.File;
 
 namespace Log_Lite.FileArchive.Checker
 {
     public class SizeArchiveNecessityChecker : BaseArchiveNecessityChecker
     {
-        private double maxLogSizeInMB;
+        private int MaxSize { get; }
+        private MemoryUnit MemoryUnit { get; }
 
-        private double fileSizeInMB
+        private double FileSize => FileInfo.Bytes / (int)MemoryUnit;
+
+        public SizeArchiveNecessityChecker(IFileInfo fileInfo, int maxSize, MemoryUnit memoryUnit)
+            : base(fileInfo)
         {
-            get
-            {
-                fileInfo.Refresh();
-                return fileInfo.Length / (1024.0f * 1024.0f);
-            }
+            MaxSize = maxSize;
+            MemoryUnit = memoryUnit;
         }
-
-
-        public SizeArchiveNecessityChecker(double maxLogSizeInMB)
-        {
-            this.maxLogSizeInMB = maxLogSizeInMB;
-        }
-
 
         public override bool HaveToArchive()
         {
-            try
-            {
-                return fileSizeInMB >= maxLogSizeInMB;
-            }
-            catch (FileNotFoundException)
-            {
-                return false;
-            }
+            return FileSize >= MaxSize;
         }
     }
 }

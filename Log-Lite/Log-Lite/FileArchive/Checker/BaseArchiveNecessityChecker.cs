@@ -1,17 +1,16 @@
-﻿using System.IO;
+﻿using Log_Lite.Model.File;
 
 namespace Log_Lite.FileArchive.Checker
 {
     public abstract class BaseArchiveNecessityChecker : IArchiveNecessityChecker
     {
-        protected FileInfo fileInfo;
-
+        protected IFileInfo FileInfo { get; }
 
         public abstract bool HaveToArchive();
 
-        public void SetFilePath(string file)
+        public BaseArchiveNecessityChecker(IFileInfo fileInfo)
         {
-            this.fileInfo = new FileInfo(file);
+            FileInfo = fileInfo;
         }
     }
 }

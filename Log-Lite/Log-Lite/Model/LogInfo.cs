@@ -1,4 +1,5 @@
 ﻿using Log_Lite.Enum;
+using Log_Lite.Model.Invoker;
 
 namespace Log_Lite.Model
 {

@@ -2,7 +2,8 @@
 using Log_Lite.LogFormatter;
 using Log_Lite.LogWriter;
 using Log_Lite.Model;
-using Log_Lite.Provider.InvokerModel;
+using Log_Lite.Model.Invoker;
+using Log_Lite.Provider.Invoker;
 using System.Collections.Generic;
 
 namespace Log_Lite.Logger
