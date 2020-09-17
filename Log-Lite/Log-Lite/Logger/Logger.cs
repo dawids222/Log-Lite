@@ -69,7 +69,7 @@ namespace Log_Lite.Logger
 
         protected void HandleLogging(LogInfo logInfo)
         {
-            var log = LogFormatter.Create(logInfo);
+            var log = LogFormatter.Format(logInfo);
 
             foreach (var writer in LogWriters)
             {

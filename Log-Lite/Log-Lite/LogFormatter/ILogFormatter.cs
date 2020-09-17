@@ -4,6 +4,6 @@ namespace Log_Lite.LogFormatter
 {
     public interface ILogFormatter
     {
-        string Create(LogInfo logInfo);
+        string Format(LogInfo logInfo);
     }
 }

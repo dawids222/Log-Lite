@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LogFormatter\BasicLogFormatterTest.cs" />
     <Compile Include="LogWriter\ConsoleLogWriterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\InvokerModel\InvokerModelProviderTest.cs" />

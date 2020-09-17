@@ -6,7 +6,7 @@ namespace Log_Lite.LogFormatter
 {
     public class BasicLogFormatter : ILogFormatter
     {
-        public string Create(LogInfo logInfo)
+        public string Format(LogInfo logInfo)
         {
             var spaces = CreateSpaces(logInfo.LogType);
             return $"{DateTime.Now}   {logInfo.LogType}   {spaces}{logInfo.InvokerInfo}  ->  {logInfo.Message}";
@@ -14,14 +14,10 @@ namespace Log_Lite.LogFormatter
 
         private string CreateSpaces(LogType type)
         {
-            var spaces = string.Empty;
-
-            if (type == LogType.ERROR || type == LogType.FATAL)
-                spaces = "  ";
-            else if (type == LogType.INFO)
-                spaces = "   ";
-
-            return spaces;
+            var warningTypeLength = LogType.WARNING.ToString().Length;
+            var currentTypeLength = type.ToString().Length;
+            var spacesLength = warningTypeLength - currentTypeLength;
+            return "".PadLeft(spacesLength, ' ');
         }
     }
 }
