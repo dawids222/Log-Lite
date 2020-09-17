@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Builder\FileLogWriterBuilder.cs" />
     <Compile Include="Enum\LogType.cs" />
+    <Compile Include="Exception\InvokerNotFoundExpection.cs" />
     <Compile Include="FileArchive\Archiver\FileArchiver.cs" />
     <Compile Include="FileArchive\Archiver\IFileArchiver.cs" />
     <Compile Include="FileArchive\Checker\BaseArchiveNecessityChecker.cs" />

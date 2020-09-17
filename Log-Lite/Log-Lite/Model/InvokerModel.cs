@@ -5,7 +5,6 @@
         public string Class { get; private set; }
         public string Method { get; private set; }
 
-
         public InvokerModel(string @class, string method)
         {
             Class = @class;

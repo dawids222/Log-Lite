@@ -91,7 +91,7 @@ namespace Log_Lite.LogWriter
                     writer.WriteLine(log);
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
