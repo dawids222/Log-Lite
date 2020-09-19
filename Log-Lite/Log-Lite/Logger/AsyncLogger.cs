@@ -21,7 +21,7 @@ namespace Log_Lite.Logger
         #endregion
 
 
-        protected override async void Log(object message, LogType type)
+        protected override async void Log(object message, LogLevel type)
         {
             await semaphoreSlim.WaitAsync();
             try

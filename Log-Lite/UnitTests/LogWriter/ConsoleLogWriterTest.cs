@@ -34,16 +34,16 @@ namespace UnitTests.LogWriter
         [TestMethod]
         public void WritesOnlyLogsWithGivenLogLevels()
         {
-            var logInfoInfo = new LogInfo(LogType.INFO, new InvokerModel("", ""), "");
-            var logInfoWarning = new LogInfo(LogType.WARNING, new InvokerModel("", ""), "");
-            var logInfoError = new LogInfo(LogType.ERROR, new InvokerModel("", ""), "");
-            var logInfoFatal = new LogInfo(LogType.FATAL, new InvokerModel("", ""), "");
+            var logInfoInfo = new LogInfo(LogLevel.INFO, new InvokerModel("", ""), "");
+            var logInfoWarning = new LogInfo(LogLevel.WARNING, new InvokerModel("", ""), "");
+            var logInfoError = new LogInfo(LogLevel.ERROR, new InvokerModel("", ""), "");
+            var logInfoFatal = new LogInfo(LogLevel.FATAL, new InvokerModel("", ""), "");
             var formatter = new CustomLogFormatter((i) =>
             {
-                if (i.LogType == LogType.FATAL) { Assert.Fail(); }
+                if (i.LogLevel == LogLevel.FATAL) { Assert.Fail(); }
                 return "";
             });
-            var allowedLogLevels = new LogType[] { LogType.INFO, LogType.WARNING, LogType.ERROR };
+            var allowedLogLevels = new LogLevel[] { LogLevel.INFO, LogLevel.WARNING, LogLevel.ERROR };
             var logger = new ConsoleLogWriter(formatter, allowedLogLevels);
 
             logger.Write(logInfoInfo);
@@ -54,7 +54,7 @@ namespace UnitTests.LogWriter
 
         private void WritesLogToConsole(ILogFormatter formatter)
         {
-            var logInfo = new LogInfo(LogType.INFO, new InvokerModel("", ""), "");
+            var logInfo = new LogInfo(LogLevel.INFO, new InvokerModel("", ""), "");
             var consoleLogWriter = new ConsoleLogWriter(formatter);
 
             TestConsoleOutput(

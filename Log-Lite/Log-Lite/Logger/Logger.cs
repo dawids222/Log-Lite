@@ -26,25 +26,25 @@ namespace Log_Lite.Logger
 
         public void Error(object message)
         {
-            Log(message, LogType.ERROR);
+            Log(message, LogLevel.ERROR);
         }
 
         public void Fatal(object message)
         {
-            Log(message, LogType.FATAL);
+            Log(message, LogLevel.FATAL);
         }
 
         public void Info(object message)
         {
-            Log(message, LogType.INFO);
+            Log(message, LogLevel.INFO);
         }
 
         public void Warning(object message)
         {
-            Log(message, LogType.WARNING);
+            Log(message, LogLevel.WARNING);
         }
 
-        protected virtual void Log(object message, LogType type)
+        protected virtual void Log(object message, LogLevel type)
         {
             lock (lockObject)
             {

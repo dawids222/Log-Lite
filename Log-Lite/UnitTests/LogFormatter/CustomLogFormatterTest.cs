@@ -12,8 +12,8 @@ namespace UnitTests.LogFormatter
         [TestMethod]
         public void ReturnLogSpecifiedInConstructor()
         {
-            var logInfo = new LogInfo(LogType.INFO, new InvokerModel("class", "method"), "message");
-            var formatter = new CustomLogFormatter((info) => $"12!@_{info.LogType}_{info.InvokerInfo.Class}_{info.InvokerInfo.Method}_{info.Message}");
+            var logInfo = new LogInfo(LogLevel.INFO, new InvokerModel("class", "method"), "message");
+            var formatter = new CustomLogFormatter((info) => $"12!@_{info.LogLevel}_{info.InvokerInfo.Class}_{info.InvokerInfo.Method}_{info.Message}");
 
             var log = formatter.Format(logInfo);
 

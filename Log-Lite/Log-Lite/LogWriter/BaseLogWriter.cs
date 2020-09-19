@@ -8,13 +8,13 @@ namespace Log_Lite.LogWriter
 {
     public abstract class BaseLogWriter : ILogWriter
     {
-        protected static readonly IEnumerable<LogType> AllLogLevels =
-            new LogType[] { LogType.INFO, LogType.WARNING, LogType.ERROR, LogType.FATAL, };
+        protected static readonly IEnumerable<LogLevel> AllLogLevels =
+            new LogLevel[] { LogLevel.INFO, LogLevel.WARNING, LogLevel.ERROR, LogLevel.FATAL, };
 
-        private IEnumerable<LogType> AllowedLogLevels { get; }
+        private IEnumerable<LogLevel> AllowedLogLevels { get; }
         protected ILogFormatter Formatter { get; }
 
-        public BaseLogWriter(ILogFormatter formatter, IEnumerable<LogType> allowedLogLevels = null)
+        public BaseLogWriter(ILogFormatter formatter, IEnumerable<LogLevel> allowedLogLevels = null)
         {
             Formatter = formatter;
             AllowedLogLevels = allowedLogLevels ?? AllLogLevels;
@@ -22,7 +22,7 @@ namespace Log_Lite.LogWriter
 
         public void Write(LogInfo info)
         {
-            if (!AllowedLogLevels.Contains(info.LogType)) { return; }
+            if (!AllowedLogLevels.Contains(info.LogLevel)) { return; }
             WriteWhenAllowed(info);
         }
 

@@ -12,10 +12,10 @@ namespace UnitTests.LogFormatter
     {
         private ILogFormatter Formatter { get; set; }
 
-        private LogInfo LogInfoInfo { get; } = new LogInfo(LogType.INFO, new InvokerModel("INFO", "INFO"), "INFO");
-        private LogInfo LogInfoWarning { get; } = new LogInfo(LogType.WARNING, new InvokerModel("WARNING", "WARNING"), "WARNING");
-        private LogInfo LogInfoError { get; } = new LogInfo(LogType.ERROR, new InvokerModel("ERROR", "ERROR"), "ERROR");
-        private LogInfo LogInfoFatal { get; } = new LogInfo(LogType.FATAL, new InvokerModel("FATAL", "FATAL"), "FATAL");
+        private LogInfo LogInfoInfo { get; } = new LogInfo(LogLevel.INFO, new InvokerModel("INFO", "INFO"), "INFO");
+        private LogInfo LogInfoWarning { get; } = new LogInfo(LogLevel.WARNING, new InvokerModel("WARNING", "WARNING"), "WARNING");
+        private LogInfo LogInfoError { get; } = new LogInfo(LogLevel.ERROR, new InvokerModel("ERROR", "ERROR"), "ERROR");
+        private LogInfo LogInfoFatal { get; } = new LogInfo(LogLevel.FATAL, new InvokerModel("FATAL", "FATAL"), "FATAL");
 
         [TestInitialize]
         public void Before()
@@ -31,10 +31,10 @@ namespace UnitTests.LogFormatter
             var errorLog = Formatter.Format(LogInfoError);
             var fatalLog = Formatter.Format(LogInfoFatal);
 
-            Assert.AreEqual($"{DateTime.Now}   {LogInfoInfo.LogType}      {LogInfoInfo.InvokerInfo}  ->  {LogInfoInfo.Message}", infoLog);
-            Assert.AreEqual($"{DateTime.Now}   {LogInfoWarning.LogType}   {LogInfoWarning.InvokerInfo}  ->  {LogInfoWarning.Message}", warningLog);
-            Assert.AreEqual($"{DateTime.Now}   {LogInfoError.LogType}     {LogInfoError.InvokerInfo}  ->  {LogInfoError.Message}", errorLog);
-            Assert.AreEqual($"{DateTime.Now}   {LogInfoFatal.LogType}     {LogInfoFatal.InvokerInfo}  ->  {LogInfoFatal.Message}", fatalLog);
+            Assert.AreEqual($"{DateTime.Now}   {LogInfoInfo.LogLevel}      {LogInfoInfo.InvokerInfo}  ->  {LogInfoInfo.Message}", infoLog);
+            Assert.AreEqual($"{DateTime.Now}   {LogInfoWarning.LogLevel}   {LogInfoWarning.InvokerInfo}  ->  {LogInfoWarning.Message}", warningLog);
+            Assert.AreEqual($"{DateTime.Now}   {LogInfoError.LogLevel}     {LogInfoError.InvokerInfo}  ->  {LogInfoError.Message}", errorLog);
+            Assert.AreEqual($"{DateTime.Now}   {LogInfoFatal.LogLevel}     {LogInfoFatal.InvokerInfo}  ->  {LogInfoFatal.Message}", fatalLog);
         }
 
         [TestMethod]

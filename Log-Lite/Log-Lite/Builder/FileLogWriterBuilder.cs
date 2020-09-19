@@ -12,7 +12,7 @@ namespace Log_Lite.Builder
         public string FileName { get; private set; } = "Log.txt";
         public string DirectoryPath { get; private set; }
             = AppDomain.CurrentDomain.BaseDirectory;
-        public IEnumerable<LogType> AllowedLogLevels { get; private set; } = null;
+        public IEnumerable<LogLevel> AllowedLogLevels { get; private set; } = null;
         public ILogFormatter Formatter { get; private set; }
         public IFileArchiver FileArchiver { get; private set; }
 
@@ -33,7 +33,7 @@ namespace Log_Lite.Builder
             return this;
         }
 
-        public FileLogWriterBuilder SetAllowedLogLevels(IEnumerable<LogType> allowedLogLevels)
+        public FileLogWriterBuilder SetAllowedLogLevels(IEnumerable<LogLevel> allowedLogLevels)
         {
             AllowedLogLevels = allowedLogLevels;
             return this;

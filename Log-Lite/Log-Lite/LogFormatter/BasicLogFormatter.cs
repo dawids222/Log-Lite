@@ -8,13 +8,13 @@ namespace Log_Lite.LogFormatter
     {
         public string Format(LogInfo logInfo)
         {
-            var spaces = CreateSpaces(logInfo.LogType);
-            return $"{DateTime.Now}   {logInfo.LogType}   {spaces}{logInfo.InvokerInfo}  ->  {logInfo.Message}";
+            var spaces = CreateSpaces(logInfo.LogLevel);
+            return $"{DateTime.Now}   {logInfo.LogLevel}   {spaces}{logInfo.InvokerInfo}  ->  {logInfo.Message}";
         }
 
-        private string CreateSpaces(LogType type)
+        private string CreateSpaces(LogLevel type)
         {
-            var warningTypeLength = LogType.WARNING.ToString().Length;
+            var warningTypeLength = LogLevel.WARNING.ToString().Length;
             var currentTypeLength = type.ToString().Length;
             var spacesLength = warningTypeLength - currentTypeLength;
             return "".PadLeft(spacesLength, ' ');

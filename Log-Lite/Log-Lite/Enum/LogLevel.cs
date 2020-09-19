@@ -1,6 +1,6 @@
 ﻿namespace Log_Lite.Enum
 {
-    public enum LogType
+    public enum LogLevel
     {
         INFO,
         ERROR,

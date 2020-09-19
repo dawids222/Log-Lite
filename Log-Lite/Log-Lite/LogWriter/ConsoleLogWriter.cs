@@ -8,7 +8,7 @@ namespace Log_Lite.LogWriter
 {
     public class ConsoleLogWriter : BaseLogWriter
     {
-        public ConsoleLogWriter(ILogFormatter formatter, IEnumerable<LogType> allowedLogLevels = null)
+        public ConsoleLogWriter(ILogFormatter formatter, IEnumerable<LogLevel> allowedLogLevels = null)
             : base(formatter, allowedLogLevels) { }
 
         protected override void WriteWhenAllowed(LogInfo info)

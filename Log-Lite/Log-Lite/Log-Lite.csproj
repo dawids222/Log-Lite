@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builder\FileLogWriterBuilder.cs" />
-    <Compile Include="Enum\LogType.cs" />
+    <Compile Include="Enum\LogLevel.cs" />
     <Compile Include="Enum\MemoryUnit.cs" />
     <Compile Include="Enum\TimeUnit.cs" />
     <Compile Include="Exception\InvokerNotFoundExpection.cs" />

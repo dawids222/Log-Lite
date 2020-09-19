@@ -25,7 +25,7 @@ namespace Log_Lite.LogWriter
             string directoryPath,
             ILogFormatter formatter,
             IFileArchiver fileArchiver,
-            IEnumerable<LogType> allowedLogLevels = null
+            IEnumerable<LogLevel> allowedLogLevels = null
         ) : base(formatter, allowedLogLevels)
         {
             FileName = fileName;

@@ -61,7 +61,7 @@ namespace ConsoleTest
                     .SetFileName("errors.txt")
                     .SetLogFormatter(basicFormatter)
                     .SetFileArchiver(errorsArchiver)
-                    .SetAllowedLogLevels(new LogType[] { LogType.ERROR, LogType.FATAL })
+                    .SetAllowedLogLevels(new LogLevel[] { LogLevel.ERROR, LogLevel.FATAL })
                     .Create();
         }
 
