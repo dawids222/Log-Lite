@@ -13,7 +13,7 @@ namespace UnitTests.FileArchiver.Checker
         {
             foreach (var value in System.Enum.GetValues(typeof(MemoryUnit)))
             {
-                var fileModel = new MockFileInfo((int)value);
+                var fileModel = new MockFileInfo(bytes: (int)value);
                 var checker = new SizeArchiveNecessityChecker(fileModel, 1, (MemoryUnit)value);
 
                 var haveToArchive = checker.HaveToArchive();
@@ -26,7 +26,7 @@ namespace UnitTests.FileArchiver.Checker
         {
             foreach (var value in System.Enum.GetValues(typeof(MemoryUnit)))
             {
-                var fileModel = new MockFileInfo((int)value - 1);
+                var fileModel = new MockFileInfo(bytes: (int)value - 1);
                 var checker = new SizeArchiveNecessityChecker(fileModel, 1, (MemoryUnit)value);
 
                 var haveToArchive = checker.HaveToArchive();
@@ -37,7 +37,7 @@ namespace UnitTests.FileArchiver.Checker
         [TestMethod]
         public void ReturnsTrueWhenFileBytesAreHigherOrEqual_DecimalSize()
         {
-            var fileModel = new MockFileInfo(512);
+            var fileModel = new MockFileInfo(bytes: 512);
             var checker = new SizeArchiveNecessityChecker(fileModel, 0.5, MemoryUnit.KB);
 
             var haveToArchive = checker.HaveToArchive();
@@ -47,7 +47,7 @@ namespace UnitTests.FileArchiver.Checker
         [TestMethod]
         public void ReturnsFalseWhenFileBytesAreSmaller_DecimalSize()
         {
-            var fileModel = new MockFileInfo(511);
+            var fileModel = new MockFileInfo(bytes: 511);
             var checker = new SizeArchiveNecessityChecker(fileModel, 0.5, MemoryUnit.KB);
 
             var haveToArchive = checker.HaveToArchive();

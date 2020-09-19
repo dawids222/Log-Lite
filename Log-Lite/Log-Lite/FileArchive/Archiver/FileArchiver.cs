@@ -1,46 +1,46 @@
-﻿using System;
+﻿using Log_Lite.FileArchive.Checker;
+using Log_Lite.Model.File;
+using System;
 using System.IO;
 
 namespace Log_Lite.FileArchive.Archiver
 {
     public class FileArchiver : IFileArchiver
     {
-        public string ArchiveFileSignature { get; set; } = "Archive";
-        public string ArchiveDirectoryName { get; private set; }
-        public string FileToArchivePath { get; private set; }
-        public string DirectoryPath { get; private set; }
+        private string ArchiveDirectoryName { get; }
+        private IFileInfo FileInfo { get; }
+        private IArchiveNecessityChecker Checker { get; }
 
+        private string ArchiveDirectoryPath { get => $"{FileInfo.DirectoryPath}/{ArchiveDirectoryName}"; }
 
-        public FileArchiver() : this("archive")
-        { }
-
-        public FileArchiver(string archiveDirectoryName)
+        public FileArchiver(
+            IFileInfo fileInfo,
+            string archiveDirectoryName,
+            IArchiveNecessityChecker checker)
         {
-            this.ArchiveDirectoryName = archiveDirectoryName;
+            ArchiveDirectoryName = archiveDirectoryName;
+            FileInfo = fileInfo;
+            Checker = checker;
         }
 
-
-        public void SetPaths(string fileToArchivePath, string directoryPath)
+        public bool HaveToArchive()
         {
-            this.FileToArchivePath = fileToArchivePath;
-            this.DirectoryPath = directoryPath;
+            return Checker.HaveToArchive();
         }
 
         public void Archive()
         {
-            var archiveDirectoryPath = DirectoryPath + ArchiveDirectoryName;
+            if (!Directory.Exists(ArchiveDirectoryPath))
+                Directory.CreateDirectory(ArchiveDirectoryPath);
 
-            if (!Directory.Exists(archiveDirectoryPath))
-                Directory.CreateDirectory(archiveDirectoryPath);
-
-            var archiveFilePath = $"{archiveDirectoryPath}/{CreateArchiveFileName()}.txt";
-            File.Copy(FileToArchivePath, archiveFilePath);
+            var archiveFilePath = CreateArchiveFilePath();
+            File.Move(FileInfo.Path, archiveFilePath);
         }
 
-        private string CreateArchiveFileName()
+        private string CreateArchiveFilePath()
         {
             var currentDateTime = DateTime.Now.ToString().Replace(':', '.');
-            return $"{currentDateTime}_{ArchiveFileSignature}";
+            return $"{ArchiveDirectoryPath}/{currentDateTime}.txt";
         }
     }
 }

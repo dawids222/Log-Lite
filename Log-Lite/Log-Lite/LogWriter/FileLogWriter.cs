@@ -1,6 +1,5 @@
 ﻿using Log_Lite.Builder;
 using Log_Lite.FileArchive.Archiver;
-using Log_Lite.FileArchive.Checker;
 using Log_Lite.LogFormatter;
 using Log_Lite.Model;
 using System;
@@ -10,109 +9,58 @@ namespace Log_Lite.LogWriter
 {
     public class FileLogWriter : BaseLogWriter
     {
-        #region Fields
-        private string fileName;
-        private string directoryPath;
-        private string filePath;
-        #endregion
-        #region Properties
-        public string FileName
-        {
-            get { return fileName; }
-            set
-            {
-                fileName = value;
-                SetFilePath();
-                SetPathsInDependencies();
-            }
-        }
-        public string DirectoryPath
-        {
-            get { return directoryPath; }
-            set
-            {
-                directoryPath = value;
-                SetFilePath();
-                SetPathsInDependencies();
-            }
-        }
+        private string FileName { get; }
+        private string DirectoryPath { get; }
+        private string FilePath { get => $"{DirectoryPath}{FileName}"; }
 
-        public IArchiveNecessityChecker ArchiveNecessityChecker { get; set; }
-        public IFileArchiver FileArchiver { get; set; }
-        #endregion
-        #region Ctors
+        private IFileArchiver FileArchiver { get; }
+
         public FileLogWriter() : this(Builder())
         { }
 
-        public FileLogWriter(string fileName,
+        public FileLogWriter(
+            string fileName,
             string directoryPath,
             ILogFormatter formatter,
-            IArchiveNecessityChecker archiveNecessityChecker,
-            IFileArchiver fileArchiver)
-            : base(formatter)
+            IFileArchiver fileArchiver
+        ) : base(formatter)
         {
-            this.fileName = fileName;
-            this.directoryPath = directoryPath;
-            SetFilePath();
-
-            this.ArchiveNecessityChecker = archiveNecessityChecker;
-            this.FileArchiver = fileArchiver;
-
-            SetPathsInDependencies();
+            FileName = fileName;
+            DirectoryPath = directoryPath;
+            FileArchiver = fileArchiver;
         }
 
         internal FileLogWriter(FileLogWriterBuilder builder)
             : this(builder.FileName,
                   builder.DirectoryPath,
                   builder.Formatter,
-                  builder.ArchiveNecessityChecker,
                   builder.FileArchiver)
         { }
-        #endregion
-        #region Methods
-        private void SetFilePath()
-        {
-            filePath = directoryPath + fileName;
-        }
-
-        private void SetPathsInDependencies()
-        {
-            //ArchiveNecessityChecker?.SetFilePath(filePath);
-            FileArchiver?.SetPaths(filePath, directoryPath);
-        }
 
         public override void Write(LogInfo info)
         {
-            try
-            {
-                if (ArchiveNecessityChecker?.HaveToArchive() == true)
-                {
-                    FileArchiver?.Archive();
-                    ClearLogFile();
-                }
+            HandleArchivization();
+            HandleLogging(info);
+        }
 
-                var log = Formatter.Format(info);
-
-                using (StreamWriter writer = File.AppendText(filePath))
-                {
-                    writer.WriteLine(log);
-                }
-            }
-            catch (System.Exception ex)
+        private void HandleArchivization()
+        {
+            if (FileArchiver?.HaveToArchive() == true)
             {
-                Console.WriteLine(ex.Message);
+                FileArchiver?.Archive();
             }
         }
 
-        private void ClearLogFile()
+        private void HandleLogging(LogInfo info)
         {
-            File.WriteAllText(filePath, string.Empty);
+            var log = Formatter.Format(info);
+            File.AppendAllText(FilePath, log);
+            File.AppendAllText(FilePath, Environment.NewLine);
         }
 
         public static FileLogWriterBuilder Builder()
         {
             return new FileLogWriterBuilder();
         }
-        #endregion
     }
 }

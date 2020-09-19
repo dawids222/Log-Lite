@@ -11,22 +11,18 @@ namespace Log_Lite.Logger
     {
         protected static object lockObject = new object();
 
-        public List<ILogWriter> LogWriters { get; set; }
-        public IInvokerModelProvider InvokerModelProvider { get; set; } = new InvokerModelProvider();
+        private IEnumerable<ILogWriter> LogWriters { get; }
+        private IInvokerModelProvider InvokerModelProvider { get; }
+            = new InvokerModelProvider(4);
 
-
-        #region ctors
         public Logger() :
             this(new FileLogWriter())
         { }
-
 
         public Logger(params ILogWriter[] logWriters)
         {
             LogWriters = new List<ILogWriter>(logWriters);
         }
-        #endregion
-
 
         public void Error(object message)
         {

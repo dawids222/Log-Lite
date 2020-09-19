@@ -1,7 +1,12 @@
-﻿using Log_Lite.LogFormatter;
+﻿using Log_Lite.Enum;
+using Log_Lite.FileArchive.Archiver;
+using Log_Lite.FileArchive.Checker;
+using Log_Lite.LogFormatter;
 using Log_Lite.Logger;
 using Log_Lite.LogWriter;
+using Log_Lite.Model.File;
 using System;
+using System.Threading;
 
 namespace ConsoleTest
 {
@@ -9,43 +14,33 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            var formatter = new BasicLogFormatter();
-            var writer = new ConsoleLogWriter(formatter);
-            var logger = new Logger(writer);
-            logger.Info("no i jak?");
-            MyLogger.Instance.Info("Rzpoczęcie działania programu");
-
-            var x = GetNumberFromUser();
-            var y = GetNumberFromUser();
-
-            var divided = Divide(x, y);
-            Console.WriteLine(divided);
-
+            var logger = CreateLogger();
+            logger.Info("Cześć");
+            logger.Info("Chyba");
+            logger.Info("Logger");
+            logger.Info("Działa");
+            Thread.Sleep(6000);
+            logger.Warning("Powienien się zrobić archive");
             Console.ReadKey();
-            MyLogger.Instance.Info("Zakończenie działania programu");
         }
 
-        static int GetNumberFromUser()
+        static ILogger CreateLogger()
         {
-            Console.WriteLine("Prosze podać liczbę");
-            var number = Convert.ToInt32(Console.ReadLine());
-
-            MyLogger.Instance.Info($"Użytkownik wpisał {number}");
-
-            return number;
-        }
-
-        static int Divide(int devided, int divider)
-        {
-            try
-            {
-                return devided / divider;
-            }
-            catch (DivideByZeroException)
-            {
-                MyLogger.Instance.Error($"Próba dzielenia przez 0!");
-                return 0;
-            }
+            var basicFormatter = new BasicLogFormatter();
+            var fileInfo = new SystemFileInfo("logs.txt");
+            var checker = new TimeArchiveNecessityChecker(fileInfo, 5, TimeUnit.SECONDS);
+            var archiver = new FileArchiver(
+                fileInfo,
+                "Archive",
+                checker);
+            var fileWriter = FileLogWriter.Builder()
+                    .SetFileName("logs.txt")
+                    .SetLogFormatter(basicFormatter)
+                    .SetFileArchiver(archiver)
+                    .Create();
+            var simpleFormatter = new CustomLogFormatter((i) => $"{i.Message}");
+            var consoleWriter = new ConsoleLogWriter(simpleFormatter);
+            return new Logger(fileWriter, consoleWriter);
         }
     }
 }

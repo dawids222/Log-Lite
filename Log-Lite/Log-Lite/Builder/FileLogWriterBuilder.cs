@@ -1,5 +1,4 @@
 ﻿using Log_Lite.FileArchive.Archiver;
-using Log_Lite.FileArchive.Checker;
 using Log_Lite.LogFormatter;
 using Log_Lite.LogWriter;
 using System;
@@ -12,9 +11,7 @@ namespace Log_Lite.Builder
         public string DirectoryPath { get; private set; }
             = AppDomain.CurrentDomain.BaseDirectory;
         public ILogFormatter Formatter { get; private set; }
-        public IArchiveNecessityChecker ArchiveNecessityChecker { get; private set; }
         public IFileArchiver FileArchiver { get; private set; }
-            = new FileArchiver();
 
 
         internal FileLogWriterBuilder()
@@ -36,12 +33,6 @@ namespace Log_Lite.Builder
         public FileLogWriterBuilder SetLogFormatter(ILogFormatter formatter)
         {
             Formatter = formatter;
-            return this;
-        }
-
-        public FileLogWriterBuilder SetArchiveNecessityChecker(IArchiveNecessityChecker checker)
-        {
-            ArchiveNecessityChecker = checker;
             return this;
         }
 
