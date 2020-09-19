@@ -1,8 +1,10 @@
 ﻿using Log_Lite.Builder;
+using Log_Lite.Enum;
 using Log_Lite.FileArchive.Archiver;
 using Log_Lite.LogFormatter;
 using Log_Lite.Model;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Log_Lite.LogWriter
@@ -22,8 +24,9 @@ namespace Log_Lite.LogWriter
             string fileName,
             string directoryPath,
             ILogFormatter formatter,
-            IFileArchiver fileArchiver
-        ) : base(formatter)
+            IFileArchiver fileArchiver,
+            IEnumerable<LogType> allowedLogLevels = null
+        ) : base(formatter, allowedLogLevels)
         {
             FileName = fileName;
             DirectoryPath = directoryPath;
@@ -34,10 +37,11 @@ namespace Log_Lite.LogWriter
             : this(builder.FileName,
                   builder.DirectoryPath,
                   builder.Formatter,
-                  builder.FileArchiver)
+                  builder.FileArchiver,
+                  builder.AllowedLogLevels)
         { }
 
-        public override void Write(LogInfo info)
+        protected override void WriteWhenAllowed(LogInfo info)
         {
             HandleArchivization();
             HandleLogging(info);

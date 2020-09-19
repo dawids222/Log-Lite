@@ -1,5 +1,8 @@
-﻿using Log_Lite.LogFormatter;
+﻿using Log_Lite.Enum;
+using Log_Lite.LogFormatter;
 using Log_Lite.LogWriter;
+using Log_Lite.Model;
+using Log_Lite.Model.Invoker;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
@@ -28,13 +31,35 @@ namespace UnitTests.LogWriter
             WritesLogToConsole(formatter);
         }
 
+        [TestMethod]
+        public void WritesOnlyLogsWithGivenLogLevels()
+        {
+            var logInfoInfo = new LogInfo(LogType.INFO, new InvokerModel("", ""), "");
+            var logInfoWarning = new LogInfo(LogType.WARNING, new InvokerModel("", ""), "");
+            var logInfoError = new LogInfo(LogType.ERROR, new InvokerModel("", ""), "");
+            var logInfoFatal = new LogInfo(LogType.FATAL, new InvokerModel("", ""), "");
+            var formatter = new CustomLogFormatter((i) =>
+            {
+                if (i.LogType == LogType.FATAL) { Assert.Fail(); }
+                return "";
+            });
+            var allowedLogLevels = new LogType[] { LogType.INFO, LogType.WARNING, LogType.ERROR };
+            var logger = new ConsoleLogWriter(formatter, allowedLogLevels);
+
+            logger.Write(logInfoInfo);
+            logger.Write(logInfoWarning);
+            logger.Write(logInfoError);
+            logger.Write(logInfoFatal);
+        }
+
         private void WritesLogToConsole(ILogFormatter formatter)
         {
+            var logInfo = new LogInfo(LogType.INFO, new InvokerModel("", ""), "");
             var consoleLogWriter = new ConsoleLogWriter(formatter);
 
             TestConsoleOutput(
-                () => consoleLogWriter.Write(null),
-                (output) => Assert.AreEqual(formatter.Format(null), output)
+                () => consoleLogWriter.Write(logInfo),
+                (output) => Assert.AreEqual(formatter.Format(logInfo), output)
             );
         }
 

@@ -16,15 +16,23 @@ namespace ConsoleTest
         {
             var logger = CreateLogger();
             logger.Info("Cześć");
-            logger.Info("Chyba");
-            logger.Info("Logger");
-            logger.Info("Działa");
+            logger.Warning("Chyba");
+            logger.Error("Logger");
+            logger.Fatal("Działa");
             Thread.Sleep(6000);
-            logger.Warning("Powienien się zrobić archive");
+            logger.Fatal("Powienien się zrobić archive");
             Console.ReadKey();
         }
 
         static ILogger CreateLogger()
+        {
+            var fileWriter = CreateBasicFileWriter();
+            var errorFileWriter = CreateErrorsFileWriter();
+            var consoleWriter = CreateBasicConsoleWriter();
+            return new Logger(fileWriter, errorFileWriter, consoleWriter);
+        }
+
+        static ILogWriter CreateBasicFileWriter()
         {
             var basicFormatter = new BasicLogFormatter();
             var fileInfo = new SystemFileInfo("logs.txt");
@@ -33,14 +41,34 @@ namespace ConsoleTest
                 fileInfo,
                 "Archive",
                 checker);
-            var fileWriter = FileLogWriter.Builder()
+            return FileLogWriter.Builder()
                     .SetFileName("logs.txt")
                     .SetLogFormatter(basicFormatter)
                     .SetFileArchiver(archiver)
                     .Create();
+        }
+
+        static ILogWriter CreateErrorsFileWriter()
+        {
+            var basicFormatter = new BasicLogFormatter();
+            var errorsFileInfo = new SystemFileInfo("errors.txt");
+            var errorsChecker = new TimeArchiveNecessityChecker(errorsFileInfo, 5, TimeUnit.SECONDS);
+            var errorsArchiver = new FileArchiver(
+                errorsFileInfo,
+                "Archive_Errors",
+                errorsChecker);
+            return FileLogWriter.Builder()
+                    .SetFileName("errors.txt")
+                    .SetLogFormatter(basicFormatter)
+                    .SetFileArchiver(errorsArchiver)
+                    .SetAllowedLogLevels(new LogType[] { LogType.ERROR, LogType.FATAL })
+                    .Create();
+        }
+
+        static ILogWriter CreateBasicConsoleWriter()
+        {
             var simpleFormatter = new CustomLogFormatter((i) => $"{i.Message}");
-            var consoleWriter = new ConsoleLogWriter(simpleFormatter);
-            return new Logger(fileWriter, consoleWriter);
+            return new ConsoleLogWriter(simpleFormatter);
         }
     }
 }
