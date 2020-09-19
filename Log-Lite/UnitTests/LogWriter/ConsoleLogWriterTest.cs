@@ -1,4 +1,5 @@
-﻿using Log_Lite.LogWriter;
+﻿using Log_Lite.LogFormatter;
+using Log_Lite.LogWriter;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
@@ -11,27 +12,29 @@ namespace UnitTests.LogWriter
         [TestMethod]
         public void WritesOneLineLogToTheConsole()
         {
-            WritesLogToConsole("the test log");
+            var formatter = new CustomLogFormatter((info) => "the test log");
+            WritesLogToConsole(formatter);
         }
 
         [TestMethod]
         public void WritesMultiLineLogToTheConsole()
         {
-            WritesLogToConsole(@"
+            var formatter = new CustomLogFormatter((info) => @"
                         this
                         is
                         multi
                         line
                         log");
+            WritesLogToConsole(formatter);
         }
 
-        private void WritesLogToConsole(string log)
+        private void WritesLogToConsole(ILogFormatter formatter)
         {
-            var consoleLogWriter = new ConsoleLogWriter();
+            var consoleLogWriter = new ConsoleLogWriter(formatter);
 
             TestConsoleOutput(
-                () => consoleLogWriter.Write(log),
-                (output) => Assert.AreEqual(log, output)
+                () => consoleLogWriter.Write(null),
+                (output) => Assert.AreEqual(formatter.Format(null), output)
             );
         }
 

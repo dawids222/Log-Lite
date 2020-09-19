@@ -1,5 +1,4 @@
 ﻿using Log_Lite.Enum;
-using Log_Lite.LogFormatter;
 using Log_Lite.LogWriter;
 using Log_Lite.Model;
 using Log_Lite.Model.Invoker;
@@ -12,27 +11,18 @@ namespace Log_Lite.Logger
     {
         protected static object lockObject = new object();
 
-        public ILogFormatter LogFormatter { get; set; }
         public List<ILogWriter> LogWriters { get; set; }
         public IInvokerModelProvider InvokerModelProvider { get; set; } = new InvokerModelProvider();
 
 
         #region ctors
         public Logger() :
-            this(new BasicLogFormatter(), new FileLogWriter())
+            this(new FileLogWriter())
         { }
 
-        public Logger(params ILogWriter[] logWriters) :
-            this(new BasicLogFormatter(), logWriters)
-        { }
 
-        public Logger(ILogFormatter logFormatter) :
-            this(logFormatter, new FileLogWriter())
-        { }
-
-        public Logger(ILogFormatter logFormatter, params ILogWriter[] logWriters)
+        public Logger(params ILogWriter[] logWriters)
         {
-            LogFormatter = logFormatter;
             LogWriters = new List<ILogWriter>(logWriters);
         }
         #endregion
@@ -70,11 +60,9 @@ namespace Log_Lite.Logger
 
         protected void HandleLogging(LogInfo logInfo)
         {
-            var log = LogFormatter.Format(logInfo);
-
             foreach (var writer in LogWriters)
             {
-                writer.Write(log);
+                writer.Write(logInfo);
             }
         }
 

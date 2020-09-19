@@ -58,6 +58,7 @@
     <Compile Include="Logger\AsyncLogger.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Logger\Logger.cs" />
+    <Compile Include="LogWriter\BaseLogWriter.cs" />
     <Compile Include="LogWriter\ConsoleLogWriter.cs" />
     <Compile Include="LogWriter\FileLogWriter.cs" />
     <Compile Include="LogWriter\ILogWriter.cs" />

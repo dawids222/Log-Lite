@@ -1,5 +1,4 @@
 ﻿using Log_Lite.Enum;
-using Log_Lite.LogFormatter;
 using Log_Lite.LogWriter;
 using Log_Lite.Model;
 using System.Threading;
@@ -18,14 +17,6 @@ namespace Log_Lite.Logger
 
         public AsyncLogger(params ILogWriter[] logWriters) :
             base(logWriters)
-        { }
-
-        public AsyncLogger(ILogFormatter logFormatter) :
-            base(logFormatter)
-        { }
-
-        public AsyncLogger(ILogFormatter logFormatter, params ILogWriter[] logWriters) :
-            base(logFormatter, logWriters)
         { }
         #endregion
 

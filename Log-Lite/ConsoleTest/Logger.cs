@@ -1,4 +1,5 @@
-﻿using Log_Lite.Logger;
+﻿using Log_Lite.LogFormatter;
+using Log_Lite.Logger;
 using Log_Lite.LogWriter;
 
 namespace ConsoleTest
@@ -22,7 +23,8 @@ namespace ConsoleTest
 
         private static ILogger CreateLogger()
         {
-            var consoleWriter = new ConsoleLogWriter();
+            var formatter = new BasicLogFormatter();
+            var consoleWriter = new ConsoleLogWriter(formatter);
 
             var logger = new Logger(consoleWriter);
 

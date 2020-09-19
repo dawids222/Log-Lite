@@ -1,4 +1,5 @@
-﻿using Log_Lite.Logger;
+﻿using Log_Lite.LogFormatter;
+using Log_Lite.Logger;
 using Log_Lite.LogWriter;
 using System;
 
@@ -8,7 +9,8 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            var writer = new ConsoleLogWriter();
+            var formatter = new BasicLogFormatter();
+            var writer = new ConsoleLogWriter(formatter);
             var logger = new Logger(writer);
             logger.Info("no i jak?");
             MyLogger.Instance.Info("Rzpoczęcie działania programu");

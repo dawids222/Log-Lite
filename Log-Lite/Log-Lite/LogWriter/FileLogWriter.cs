@@ -1,12 +1,14 @@
 ﻿using Log_Lite.Builder;
 using Log_Lite.FileArchive.Archiver;
 using Log_Lite.FileArchive.Checker;
+using Log_Lite.LogFormatter;
+using Log_Lite.Model;
 using System;
 using System.IO;
 
 namespace Log_Lite.LogWriter
 {
-    public class FileLogWriter : ILogWriter
+    public class FileLogWriter : BaseLogWriter
     {
         #region Fields
         private string fileName;
@@ -44,8 +46,10 @@ namespace Log_Lite.LogWriter
 
         public FileLogWriter(string fileName,
             string directoryPath,
+            ILogFormatter formatter,
             IArchiveNecessityChecker archiveNecessityChecker,
             IFileArchiver fileArchiver)
+            : base(formatter)
         {
             this.fileName = fileName;
             this.directoryPath = directoryPath;
@@ -60,6 +64,7 @@ namespace Log_Lite.LogWriter
         internal FileLogWriter(FileLogWriterBuilder builder)
             : this(builder.FileName,
                   builder.DirectoryPath,
+                  builder.Formatter,
                   builder.ArchiveNecessityChecker,
                   builder.FileArchiver)
         { }
@@ -76,7 +81,7 @@ namespace Log_Lite.LogWriter
             FileArchiver?.SetPaths(filePath, directoryPath);
         }
 
-        public void Write(string log)
+        public override void Write(LogInfo info)
         {
             try
             {
@@ -85,6 +90,8 @@ namespace Log_Lite.LogWriter
                     FileArchiver?.Archive();
                     ClearLogFile();
                 }
+
+                var log = Formatter.Format(info);
 
                 using (StreamWriter writer = File.AppendText(filePath))
                 {

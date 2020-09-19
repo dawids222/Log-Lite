@@ -1,7 +1,9 @@
-﻿namespace Log_Lite.LogWriter
+﻿using Log_Lite.Model;
+
+namespace Log_Lite.LogWriter
 {
     public interface ILogWriter
     {
-        void Write(string log);
+        void Write(LogInfo info);
     }
 }
