@@ -5,12 +5,12 @@ namespace Log_Lite.FileArchive.Checker
 {
     public class SizeArchiveNecessityChecker : BaseArchiveNecessityChecker
     {
-        private int MaxSize { get; }
+        private double MaxSize { get; }
         private MemoryUnit MemoryUnit { get; }
 
-        private double FileSize => FileInfo.Bytes / (int)MemoryUnit;
+        private double FileSize => FileInfo.Bytes / (double)MemoryUnit;
 
-        public SizeArchiveNecessityChecker(IFileInfo fileInfo, int maxSize, MemoryUnit memoryUnit)
+        public SizeArchiveNecessityChecker(IFileInfo fileInfo, double maxSize, MemoryUnit memoryUnit)
             : base(fileInfo)
         {
             MaxSize = maxSize;

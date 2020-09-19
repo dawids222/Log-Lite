@@ -49,7 +49,7 @@
     <Compile Include="FileArchive\Archiver\FileArchiver.cs" />
     <Compile Include="FileArchive\Archiver\IFileArchiver.cs" />
     <Compile Include="FileArchive\Checker\BaseArchiveNecessityChecker.cs" />
-    <Compile Include="FileArchive\Checker\DaysArchiveNecessityChecker.cs" />
+    <Compile Include="FileArchive\Checker\TimeArchiveNecessityChecker.cs" />
     <Compile Include="FileArchive\Checker\IArchiveNecessityChecker.cs" />
     <Compile Include="FileArchive\Checker\SizeArchiveNecessityChecker.cs" />
     <Compile Include="LogFormatter\ILogFormatter.cs" />

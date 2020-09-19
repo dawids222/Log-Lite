@@ -33,5 +33,25 @@ namespace UnitTests.FileArchiver.Checker
                 Assert.IsFalse(haveToArchive);
             }
         }
+
+        [TestMethod]
+        public void ReturnsTrueWhenFileBytesAreHigherOrEqual_DecimalSize()
+        {
+            var fileModel = new MockFileInfo(512);
+            var checker = new SizeArchiveNecessityChecker(fileModel, 0.5, MemoryUnit.KB);
+
+            var haveToArchive = checker.HaveToArchive();
+            Assert.IsTrue(haveToArchive);
+        }
+
+        [TestMethod]
+        public void ReturnsFalseWhenFileBytesAreSmaller_DecimalSize()
+        {
+            var fileModel = new MockFileInfo(511);
+            var checker = new SizeArchiveNecessityChecker(fileModel, 0.5, MemoryUnit.KB);
+
+            var haveToArchive = checker.HaveToArchive();
+            Assert.IsFalse(haveToArchive);
+        }
     }
 }

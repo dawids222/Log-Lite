@@ -4,15 +4,15 @@ using System;
 
 namespace Log_Lite.FileArchive.Checker
 {
-    public class DaysArchiveNecessityChecker : BaseArchiveNecessityChecker
+    public class TimeArchiveNecessityChecker : BaseArchiveNecessityChecker
     {
-        private uint MaxLogAge { get; }
+        private double MaxLogAge { get; }
 
-        private int FileAge => GetFileAge();
+        private double FileAge => GetFileAge();
 
         public TimeUnit TimeUnit { get; }
 
-        public DaysArchiveNecessityChecker(IFileInfo fileInfo, uint maxLogAge, TimeUnit timeUnit)
+        public TimeArchiveNecessityChecker(IFileInfo fileInfo, double maxLogAge, TimeUnit timeUnit)
             : base(fileInfo)
         {
             MaxLogAge = maxLogAge;
@@ -24,11 +24,11 @@ namespace Log_Lite.FileArchive.Checker
             return FileAge >= MaxLogAge;
         }
 
-        private int GetFileAge()
+        private double GetFileAge()
         {
             var fileAgeInTimeSpan = DateTime.Now - FileInfo.CreationTime;
             var fileAgeInSeconds = (int)fileAgeInTimeSpan.TotalSeconds;
-            return fileAgeInSeconds / (int)TimeUnit;
+            return fileAgeInSeconds / (double)TimeUnit;
         }
     }
 }
