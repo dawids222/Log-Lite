@@ -54,6 +54,7 @@
     <Compile Include="FileArchiver\Checker\TimeArchiveNecessityCheckerTest.cs" />
     <Compile Include="FileArchiver\Checker\SizeArchiveNecessityCheckerTest.cs" />
     <Compile Include="LogFormatter\BasicLogFormatterTest.cs" />
+    <Compile Include="LogFormatter\CustomLogFormatterTest.cs" />
     <Compile Include="LogWriter\ConsoleLogWriterTest.cs" />
     <Compile Include="Model\File\MockFileInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

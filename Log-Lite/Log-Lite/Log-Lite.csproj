@@ -52,6 +52,7 @@
     <Compile Include="FileArchive\Checker\TimeArchiveNecessityChecker.cs" />
     <Compile Include="FileArchive\Checker\IArchiveNecessityChecker.cs" />
     <Compile Include="FileArchive\Checker\SizeArchiveNecessityChecker.cs" />
+    <Compile Include="LogFormatter\CustomLogFormatter.cs" />
     <Compile Include="LogFormatter\ILogFormatter.cs" />
     <Compile Include="LogFormatter\BasicLogFormatter.cs" />
     <Compile Include="Logger\AsyncLogger.cs" />

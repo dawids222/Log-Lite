@@ -7,10 +7,9 @@ namespace Log_Lite.FileArchive.Checker
     public class TimeArchiveNecessityChecker : BaseArchiveNecessityChecker
     {
         private double MaxLogAge { get; }
+        public TimeUnit TimeUnit { get; }
 
         private double FileAge => GetFileAge();
-
-        public TimeUnit TimeUnit { get; }
 
         public TimeArchiveNecessityChecker(IFileInfo fileInfo, double maxLogAge, TimeUnit timeUnit)
             : base(fileInfo)
