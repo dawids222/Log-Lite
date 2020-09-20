@@ -3,9 +3,8 @@ using Log_Lite.Enum;
 using Log_Lite.FileArchive.Archiver;
 using Log_Lite.LogFormatter;
 using Log_Lite.Model;
-using System;
+using Log_Lite.Service.File;
 using System.Collections.Generic;
-using System.IO;
 
 namespace Log_Lite.LogWriter
 {
@@ -16,6 +15,7 @@ namespace Log_Lite.LogWriter
         private string FilePath { get => $"{DirectoryPath}{FileName}"; }
 
         private IFileArchiver FileArchiver { get; }
+        private IFileService FileService { get; }
 
         public FileLogWriter() : this(Builder())
         { }
@@ -25,12 +25,14 @@ namespace Log_Lite.LogWriter
             string directoryPath,
             ILogFormatter formatter,
             IFileArchiver fileArchiver,
+            IFileService fileService,
             IEnumerable<LogLevel> allowedLogLevels = null
         ) : base(formatter, allowedLogLevels)
         {
             FileName = fileName;
             DirectoryPath = directoryPath;
             FileArchiver = fileArchiver;
+            FileService = fileService;
         }
 
         internal FileLogWriter(FileLogWriterBuilder builder)
@@ -38,6 +40,7 @@ namespace Log_Lite.LogWriter
                   builder.DirectoryPath,
                   builder.Formatter,
                   builder.FileArchiver,
+                  builder.FileService,
                   builder.AllowedLogLevels)
         { }
 
@@ -58,8 +61,7 @@ namespace Log_Lite.LogWriter
         private void HandleLogging(LogInfo info)
         {
             var log = Formatter.Format(info);
-            File.AppendAllText(FilePath, log);
-            File.AppendAllText(FilePath, Environment.NewLine);
+            FileService.Append(FilePath, log);
         }
 
         public static FileLogWriterBuilder Builder()

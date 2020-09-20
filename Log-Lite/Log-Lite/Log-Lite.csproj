@@ -70,6 +70,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\Invoker\IInvokerModelProvider.cs" />
     <Compile Include="Provider\Invoker\InvokerModelProvider.cs" />
+    <Compile Include="Service\File\IFileService.cs" />
+    <Compile Include="Service\File\SystemFileService.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
