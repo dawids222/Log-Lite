@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using UnitTests.Model.File;
 
-namespace UnitTests.FileArchiver.Checker
+namespace UnitTests.FileArchive.Checker
 {
     [TestClass]
     public class TimeArchiveNecessityCheckerTest

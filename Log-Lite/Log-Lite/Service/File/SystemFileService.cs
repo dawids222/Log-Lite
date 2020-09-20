@@ -9,5 +9,10 @@ namespace Log_Lite.Service.File
             System.IO.File.AppendAllText(path, content);
             System.IO.File.AppendAllText(path, Environment.NewLine);
         }
+
+        public void Move(string sourcePath, string destinationPath)
+        {
+            System.IO.File.Move(sourcePath, destinationPath);
+        }
     }
 }

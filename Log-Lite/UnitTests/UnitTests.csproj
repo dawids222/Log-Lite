@@ -64,8 +64,9 @@
   <ItemGroup>
     <Compile Include="Enum\MemoryUnitTest.cs" />
     <Compile Include="Enum\TimeUnitTest.cs" />
-    <Compile Include="FileArchiver\Checker\TimeArchiveNecessityCheckerTest.cs" />
-    <Compile Include="FileArchiver\Checker\SizeArchiveNecessityCheckerTest.cs" />
+    <Compile Include="FileArchive\Archiver\FileArchiverTest.cs" />
+    <Compile Include="FileArchive\Checker\TimeArchiveNecessityCheckerTest.cs" />
+    <Compile Include="FileArchive\Checker\SizeArchiveNecessityCheckerTest.cs" />
     <Compile Include="LogFormatter\BasicLogFormatterTest.cs" />
     <Compile Include="LogFormatter\CustomLogFormatterTest.cs" />
     <Compile Include="LogWriter\ConsoleLogWriterTest.cs" />

@@ -3,7 +3,7 @@ using Log_Lite.FileArchive.Checker;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UnitTests.Model.File;
 
-namespace UnitTests.FileArchiver.Checker
+namespace UnitTests.FileArchive.Checker
 {
     [TestClass]
     public class SizeArchiveNecessityCheckerTest

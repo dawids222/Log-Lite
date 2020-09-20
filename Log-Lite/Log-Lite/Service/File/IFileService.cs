@@ -3,5 +3,6 @@
     public interface IFileService
     {
         void Append(string path, string content);
+        void Move(string sourcePath, string destinationPath);
     }
 }

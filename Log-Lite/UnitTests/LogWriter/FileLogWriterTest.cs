@@ -13,12 +13,11 @@ namespace UnitTests.LogWriter
     [TestClass]
     public class FileLogWriterTest
     {
-        FileLogWriter Writer;
-        Mock<ILogFormatter> Formatter;
-        Mock<IFileService> Service;
-        Mock<IFileArchiver> Archiver;
-        LogInfo LogInfo;
-
+        public FileLogWriter Writer { get; private set; }
+        public Mock<ILogFormatter> Formatter { get; private set; }
+        public Mock<IFileService> Service { get; private set; }
+        public Mock<IFileArchiver> Archiver { get; private set; }
+        public LogInfo LogInfo { get; private set; }
 
         [TestInitialize]
         public void Before()
