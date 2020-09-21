@@ -20,18 +20,12 @@ namespace Log_Lite.Logger
         { }
 
         public Logger(params ILogWriter[] logWriters)
+            : this((IEnumerable<ILogWriter>)logWriters)
+        { }
+
+        public Logger(IEnumerable<ILogWriter> logWriters)
         {
             LogWriters = new List<ILogWriter>(logWriters);
-        }
-
-        public void Error(object message)
-        {
-            Log(message, LogLevel.ERROR);
-        }
-
-        public void Fatal(object message)
-        {
-            Log(message, LogLevel.FATAL);
         }
 
         public void Info(object message)
@@ -42,6 +36,16 @@ namespace Log_Lite.Logger
         public void Warning(object message)
         {
             Log(message, LogLevel.WARNING);
+        }
+
+        public void Error(object message)
+        {
+            Log(message, LogLevel.ERROR);
+        }
+
+        public void Fatal(object message)
+        {
+            Log(message, LogLevel.FATAL);
         }
 
         protected virtual void Log(object message, LogLevel type)

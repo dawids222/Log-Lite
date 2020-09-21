@@ -19,30 +19,27 @@ namespace UnitTests.LogWriter
         public Mock<IFileArchiver> Archiver { get; private set; }
         public LogInfo LogInfo { get; private set; }
 
+        private const string FORMATTER_RETURN_VALUE = "FORMATTER RETURN VALUE";
+
         [TestInitialize]
         public void Before()
         {
+            LogInfo = new LogInfo(LogLevel.INFO, new InvokerModel("", ""), "");
             Formatter = new Mock<ILogFormatter>();
+            Formatter.Setup(x => x.Format(LogInfo)).Returns(FORMATTER_RETURN_VALUE);
             Service = new Mock<IFileService>();
             Archiver = new Mock<IFileArchiver>();
-            LogInfo = new LogInfo(LogLevel.INFO, new InvokerModel("", ""), "");
+
             Writer = new FileLogWriter("", "", Formatter.Object, Archiver.Object, Service.Object);
         }
 
         [TestMethod]
-        public void FormatsLog()
+        public void WritesFormattedLog()
         {
             Writer.Write(LogInfo);
 
-            Formatter.Verify(x => x.Format(It.IsAny<LogInfo>()), Times.Once);
-        }
-
-        [TestMethod]
-        public void WritesLog()
-        {
-            Writer.Write(LogInfo);
-
-            Service.Verify(x => x.Append(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            Formatter.Verify(x => x.Format(LogInfo), Times.Once);
+            Service.Verify(x => x.Append(It.IsAny<string>(), FORMATTER_RETURN_VALUE), Times.Once);
         }
 
         [TestMethod]

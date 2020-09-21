@@ -69,6 +69,7 @@
     <Compile Include="FileArchive\Checker\SizeArchiveNecessityCheckerTest.cs" />
     <Compile Include="LogFormatter\BasicLogFormatterTest.cs" />
     <Compile Include="LogFormatter\CustomLogFormatterTest.cs" />
+    <Compile Include="Logger\LoggerTest.cs" />
     <Compile Include="LogWriter\ConsoleLogWriterTest.cs" />
     <Compile Include="LogWriter\FileLogWriterTest.cs" />
     <Compile Include="Model\File\MockFileInfo.cs" />
