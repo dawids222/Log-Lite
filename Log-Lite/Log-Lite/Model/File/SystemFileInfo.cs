@@ -32,13 +32,13 @@ namespace Log_Lite.Model.File
         private long GetBytes()
         {
             FileInfo.Refresh();
-            return FileInfo.Length;
+            return FileInfo.Exists ? FileInfo.Length : 0;
         }
 
         private DateTime GetCreationTime()
         {
             FileInfo.Refresh();
-            return FileInfo.CreationTime;
+            return FileInfo.Exists ? FileInfo.CreationTime : DateTime.Now;
         }
     }
 }
