@@ -22,7 +22,7 @@ namespace Log_Lite.LogWriter
 
         public void Write(LogInfo info)
         {
-            if (!AllowedLogLevels.Contains(info.LogLevel)) { return; }
+            if (!AllowedLogLevels.Contains(info.Level)) { return; }
             WriteWhenAllowed(info);
         }
 

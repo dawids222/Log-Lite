@@ -8,8 +8,8 @@ namespace Log_Lite.LogFormatter
     {
         public string Format(LogInfo logInfo)
         {
-            var spaces = CreateSpaces(logInfo.LogLevel);
-            return $"{DateTime.Now}   {logInfo.LogLevel}   {spaces}{logInfo.InvokerInfo}  ->  {logInfo.Message}";
+            var spaces = CreateSpaces(logInfo.Level);
+            return $"{DateTime.Now}   {logInfo.Level}   {spaces}{logInfo.Invoker}  ->  {logInfo.Message}";
         }
 
         private string CreateSpaces(LogLevel type)

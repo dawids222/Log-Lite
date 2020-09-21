@@ -5,14 +5,14 @@ namespace Log_Lite.Model
 {
     public class LogInfo
     {
-        public LogLevel LogLevel { get; private set; }
-        public IInvokerModel InvokerInfo { get; private set; }
+        public LogLevel Level { get; private set; }
+        public IInvokerModel Invoker { get; private set; }
         public object Message { get; private set; }
 
-        public LogInfo(LogLevel logLevel, IInvokerModel invokerInfo, object message)
+        public LogInfo(LogLevel level, IInvokerModel invoker, object message)
         {
-            LogLevel = logLevel;
-            InvokerInfo = invokerInfo;
+            Level = level;
+            Invoker = invoker;
             Message = message;
         }
     }

@@ -40,7 +40,7 @@ namespace UnitTests.LogWriter
             var logInfoFatal = new LogInfo(LogLevel.FATAL, new InvokerModel("", ""), "");
             var formatter = new CustomLogFormatter((i) =>
             {
-                if (i.LogLevel == LogLevel.FATAL) { Assert.Fail(); }
+                if (i.Level == LogLevel.FATAL) { Assert.Fail(); }
                 return "";
             });
             var allowedLogLevels = new LogLevel[] { LogLevel.INFO, LogLevel.WARNING, LogLevel.ERROR };

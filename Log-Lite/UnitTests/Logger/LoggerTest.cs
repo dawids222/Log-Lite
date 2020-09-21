@@ -39,9 +39,9 @@ namespace UnitTests.Logger
 
             logger.Info("MESSAGE");
 
-            Assert.AreEqual(LogLevel.INFO, logInfo.LogLevel);
-            Assert.AreEqual("LoggerTest", logInfo.InvokerInfo.Class);
-            Assert.AreEqual("CapturesCorrectLogInfo", logInfo.InvokerInfo.Method);
+            Assert.AreEqual(LogLevel.INFO, logInfo.Level);
+            Assert.AreEqual("LoggerTest", logInfo.Invoker.Class);
+            Assert.AreEqual("CapturesCorrectLogInfo", logInfo.Invoker.Method);
             Assert.AreEqual("MESSAGE", logInfo.Message);
         }
     }

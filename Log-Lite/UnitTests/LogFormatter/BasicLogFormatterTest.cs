@@ -31,10 +31,10 @@ namespace UnitTests.LogFormatter
             var errorLog = Formatter.Format(LogInfoError);
             var fatalLog = Formatter.Format(LogInfoFatal);
 
-            Assert.AreEqual($"{DateTime.Now}   {LogInfoInfo.LogLevel}      {LogInfoInfo.InvokerInfo}  ->  {LogInfoInfo.Message}", infoLog);
-            Assert.AreEqual($"{DateTime.Now}   {LogInfoWarning.LogLevel}   {LogInfoWarning.InvokerInfo}  ->  {LogInfoWarning.Message}", warningLog);
-            Assert.AreEqual($"{DateTime.Now}   {LogInfoError.LogLevel}     {LogInfoError.InvokerInfo}  ->  {LogInfoError.Message}", errorLog);
-            Assert.AreEqual($"{DateTime.Now}   {LogInfoFatal.LogLevel}     {LogInfoFatal.InvokerInfo}  ->  {LogInfoFatal.Message}", fatalLog);
+            Assert.AreEqual($"{DateTime.Now}   {LogInfoInfo.Level}      {LogInfoInfo.Invoker}  ->  {LogInfoInfo.Message}", infoLog);
+            Assert.AreEqual($"{DateTime.Now}   {LogInfoWarning.Level}   {LogInfoWarning.Invoker}  ->  {LogInfoWarning.Message}", warningLog);
+            Assert.AreEqual($"{DateTime.Now}   {LogInfoError.Level}     {LogInfoError.Invoker}  ->  {LogInfoError.Message}", errorLog);
+            Assert.AreEqual($"{DateTime.Now}   {LogInfoFatal.Level}     {LogInfoFatal.Invoker}  ->  {LogInfoFatal.Message}", fatalLog);
         }
 
         [TestMethod]
