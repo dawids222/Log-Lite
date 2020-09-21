@@ -4,6 +4,7 @@ using Log_Lite.LogFormatter;
 using Log_Lite.LogWriter;
 using Log_Lite.Model;
 using Log_Lite.Model.Invoker;
+using Log_Lite.Service.Directory;
 using Log_Lite.Service.File;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -15,7 +16,8 @@ namespace UnitTests.LogWriter
     {
         public FileLogWriter Writer { get; private set; }
         public Mock<ILogFormatter> Formatter { get; private set; }
-        public Mock<IFileService> Service { get; private set; }
+        public Mock<IFileService> FileService { get; private set; }
+        public Mock<IDirectoryService> DirectoryServie { get; private set; }
         public Mock<IFileArchiver> Archiver { get; private set; }
         public LogInfo LogInfo { get; private set; }
 
@@ -27,10 +29,12 @@ namespace UnitTests.LogWriter
             LogInfo = new LogInfo(LogLevel.INFO, new InvokerModel("", ""), "");
             Formatter = new Mock<ILogFormatter>();
             Formatter.Setup(x => x.Format(LogInfo)).Returns(FORMATTER_RETURN_VALUE);
-            Service = new Mock<IFileService>();
+            FileService = new Mock<IFileService>();
+            DirectoryServie = new Mock<IDirectoryService>();
+            DirectoryServie.Setup(x => x.Exists(It.IsAny<string>())).Returns(true);
             Archiver = new Mock<IFileArchiver>();
 
-            Writer = new FileLogWriter("", "", Formatter.Object, Archiver.Object, Service.Object);
+            Writer = new FileLogWriter("", "", Formatter.Object, Archiver.Object, FileService.Object, DirectoryServie.Object);
         }
 
         [TestMethod]
@@ -39,7 +43,7 @@ namespace UnitTests.LogWriter
             Writer.Write(LogInfo);
 
             Formatter.Verify(x => x.Format(LogInfo), Times.Once);
-            Service.Verify(x => x.Append(It.IsAny<string>(), FORMATTER_RETURN_VALUE), Times.Once);
+            FileService.Verify(x => x.Append(It.IsAny<string>(), FORMATTER_RETURN_VALUE), Times.Once);
         }
 
         [TestMethod]
@@ -65,9 +69,27 @@ namespace UnitTests.LogWriter
         [TestMethod]
         public void WorksWithoutArchiver()
         {
-            Writer = new FileLogWriter("", "", Formatter.Object, null, Service.Object);
+            Writer = new FileLogWriter("", "", Formatter.Object, null, FileService.Object, DirectoryServie.Object);
 
             Writer.Write(LogInfo);
+        }
+
+        [TestMethod]
+        public void CreatesDirecotryForLogFileIfItDoesNotExist()
+        {
+            DirectoryServie.Setup(x => x.Exists(It.IsAny<string>())).Returns(false);
+
+            Writer.Write(LogInfo);
+
+            DirectoryServie.Verify(x => x.Create(It.IsAny<string>()), Times.Once);
+        }
+
+        [TestMethod]
+        public void DoesNotCreateDirecotryForLogFileIfItAlreadyExists()
+        {
+            Writer.Write(LogInfo);
+
+            DirectoryServie.Verify(x => x.Create(It.IsAny<string>()), Times.Never);
         }
     }
 }

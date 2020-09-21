@@ -3,6 +3,7 @@ using Log_Lite.Enum;
 using Log_Lite.FileArchive.Archiver;
 using Log_Lite.LogFormatter;
 using Log_Lite.Model;
+using Log_Lite.Service.Directory;
 using Log_Lite.Service.File;
 using System.Collections.Generic;
 
@@ -16,6 +17,7 @@ namespace Log_Lite.LogWriter
 
         private IFileArchiver FileArchiver { get; }
         private IFileService FileService { get; }
+        private IDirectoryService DirectoryService { get; }
 
         public FileLogWriter() : this(Builder())
         { }
@@ -26,6 +28,7 @@ namespace Log_Lite.LogWriter
             ILogFormatter formatter,
             IFileArchiver fileArchiver,
             IFileService fileService,
+            IDirectoryService directoryService,
             IEnumerable<LogLevel> allowedLogLevels = null
         ) : base(formatter, allowedLogLevels)
         {
@@ -33,6 +36,7 @@ namespace Log_Lite.LogWriter
             DirectoryPath = directoryPath;
             FileArchiver = fileArchiver;
             FileService = fileService;
+            DirectoryService = directoryService;
         }
 
         internal FileLogWriter(FileLogWriterBuilder builder)
@@ -41,12 +45,14 @@ namespace Log_Lite.LogWriter
                   builder.Formatter,
                   builder.FileArchiver,
                   builder.FileService,
+                  builder.DirectoryService,
                   builder.AllowedLogLevels)
         { }
 
         protected override void WriteWhenAllowed(LogInfo info)
         {
             HandleArchivization();
+            HandleDirectoryExistance();
             HandleLogging(info);
         }
 
@@ -55,6 +61,14 @@ namespace Log_Lite.LogWriter
             if (FileArchiver?.HaveToArchive() == true)
             {
                 FileArchiver?.Archive();
+            }
+        }
+
+        private void HandleDirectoryExistance()
+        {
+            if (!DirectoryService.Exists(DirectoryPath))
+            {
+                DirectoryService.Create(DirectoryPath);
             }
         }
 

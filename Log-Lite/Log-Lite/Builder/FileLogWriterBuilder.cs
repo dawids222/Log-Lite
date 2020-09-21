@@ -2,6 +2,7 @@
 using Log_Lite.FileArchive.Archiver;
 using Log_Lite.LogFormatter;
 using Log_Lite.LogWriter;
+using Log_Lite.Service.Directory;
 using Log_Lite.Service.File;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Log_Lite.Builder
         public ILogFormatter Formatter { get; private set; } = new BasicLogFormatter();
         public IFileArchiver FileArchiver { get; private set; } = null;
         public IFileService FileService { get; private set; } = new SystemFileService();
-
+        public IDirectoryService DirectoryService { get; private set; } = new SystemDirectoryService();
 
         internal FileLogWriterBuilder()
         { }
@@ -55,6 +56,12 @@ namespace Log_Lite.Builder
         public FileLogWriterBuilder SetFileService(IFileService service)
         {
             FileService = service;
+            return this;
+        }
+
+        public FileLogWriterBuilder SetDirectoryService(IDirectoryService service)
+        {
+            DirectoryService = service;
             return this;
         }
 
