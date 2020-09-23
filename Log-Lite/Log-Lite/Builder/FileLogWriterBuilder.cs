@@ -2,18 +2,16 @@
 using Log_Lite.FileArchive.Archiver;
 using Log_Lite.LogFormatter;
 using Log_Lite.LogWriter;
+using Log_Lite.Model.File;
 using Log_Lite.Service.Directory;
 using Log_Lite.Service.File;
-using System;
 using System.Collections.Generic;
 
 namespace Log_Lite.Builder
 {
     public class FileLogWriterBuilder
     {
-        public string FileName { get; private set; } = "logs.txt";
-        public string DirectoryPath { get; private set; }
-            = AppDomain.CurrentDomain.BaseDirectory;
+        public IFileInfo FileInfo { get; private set; } = new SystemFileInfo("logs.txt");
         public IEnumerable<LogLevel> AllowedLogLevels { get; private set; } = null;
         public ILogFormatter Formatter { get; private set; } = new BasicLogFormatter();
         public IFileArchiver FileArchiver { get; private set; } = null;
@@ -23,16 +21,9 @@ namespace Log_Lite.Builder
         internal FileLogWriterBuilder()
         { }
 
-
-        public FileLogWriterBuilder SetFileName(string name)
+        public FileLogWriterBuilder SetFileInfo(IFileInfo fileInfo)
         {
-            FileName = name;
-            return this;
-        }
-
-        public FileLogWriterBuilder SetDirectoryPath(string path)
-        {
-            DirectoryPath = path;
+            FileInfo = fileInfo;
             return this;
         }
 
@@ -65,7 +56,7 @@ namespace Log_Lite.Builder
             return this;
         }
 
-        public FileLogWriter Create()
+        public FileLogWriter Build()
         {
             return new FileLogWriter(this);
         }

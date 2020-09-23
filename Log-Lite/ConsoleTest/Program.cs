@@ -34,35 +34,26 @@ namespace ConsoleTest
 
         static ILogWriter CreateBasicFileWriter()
         {
-            var basicFormatter = new BasicLogFormatter();
             var fileInfo = new SystemFileInfo("logs.txt");
             var checker = new TimeArchiveNecessityChecker(fileInfo, 5, TimeUnit.SECONDS);
-            var archiver = new FileArchiver(
-                fileInfo,
-                "Archive",
-                checker);
+            var archiver = new FileArchiver(fileInfo, "Archive", checker);
             return FileLogWriter.Builder()
-                    .SetFileName("logs.txt")
-                    .SetLogFormatter(basicFormatter)
+                    .SetFileInfo(fileInfo)
                     .SetFileArchiver(archiver)
-                    .Create();
+                    .Build();
         }
 
         static ILogWriter CreateErrorsFileWriter()
         {
-            var basicFormatter = new BasicLogFormatter();
             var errorsFileInfo = new SystemFileInfo("errors.txt");
-            var errorsChecker = new TimeArchiveNecessityChecker(errorsFileInfo, 5, TimeUnit.SECONDS);
-            var errorsArchiver = new FileArchiver(
-                errorsFileInfo,
-                "Archive_Errors",
-                errorsChecker);
+            var errorsChecker = new SizeArchiveNecessityChecker(errorsFileInfo, 50, MemoryUnit.B);
+            var errorsArchiver = new FileArchiver(errorsFileInfo, "Archive_Errors", errorsChecker);
+            var logLevels = new LogLevel[] { LogLevel.ERROR, LogLevel.FATAL };
             return FileLogWriter.Builder()
-                    .SetFileName("errors.txt")
-                    .SetLogFormatter(basicFormatter)
+                    .SetFileInfo(errorsFileInfo)
                     .SetFileArchiver(errorsArchiver)
-                    .SetAllowedLogLevels(new LogLevel[] { LogLevel.ERROR, LogLevel.FATAL })
-                    .Create();
+                    .SetAllowedLogLevels(logLevels)
+                    .Build();
         }
 
         static ILogWriter CreateBasicConsoleWriter()

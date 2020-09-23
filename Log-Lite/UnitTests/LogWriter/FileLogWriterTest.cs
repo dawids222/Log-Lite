@@ -3,11 +3,13 @@ using Log_Lite.FileArchive.Archiver;
 using Log_Lite.LogFormatter;
 using Log_Lite.LogWriter;
 using Log_Lite.Model;
+using Log_Lite.Model.File;
 using Log_Lite.Model.Invoker;
 using Log_Lite.Service.Directory;
 using Log_Lite.Service.File;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using UnitTests.Model.File;
 
 namespace UnitTests.LogWriter
 {
@@ -15,6 +17,7 @@ namespace UnitTests.LogWriter
     public class FileLogWriterTest
     {
         public FileLogWriter Writer { get; private set; }
+        public IFileInfo FileInfo { get; private set; }
         public Mock<ILogFormatter> Formatter { get; private set; }
         public Mock<IFileService> FileService { get; private set; }
         public Mock<IDirectoryService> DirectoryServie { get; private set; }
@@ -27,6 +30,7 @@ namespace UnitTests.LogWriter
         public void Before()
         {
             LogInfo = new LogInfo(LogLevel.INFO, new InvokerModel("", ""), "");
+            FileInfo = new MockFileInfo("", "");
             Formatter = new Mock<ILogFormatter>();
             Formatter.Setup(x => x.Format(LogInfo)).Returns(FORMATTER_RETURN_VALUE);
             FileService = new Mock<IFileService>();
@@ -34,7 +38,7 @@ namespace UnitTests.LogWriter
             DirectoryServie.Setup(x => x.Exists(It.IsAny<string>())).Returns(true);
             Archiver = new Mock<IFileArchiver>();
 
-            Writer = new FileLogWriter("", "", Formatter.Object, Archiver.Object, FileService.Object, DirectoryServie.Object);
+            Writer = new FileLogWriter(FileInfo, Formatter.Object, Archiver.Object, FileService.Object, DirectoryServie.Object);
         }
 
         [TestMethod]
@@ -69,7 +73,7 @@ namespace UnitTests.LogWriter
         [TestMethod]
         public void WorksWithoutArchiver()
         {
-            Writer = new FileLogWriter("", "", Formatter.Object, null, FileService.Object, DirectoryServie.Object);
+            Writer = new FileLogWriter(FileInfo, Formatter.Object, null, FileService.Object, DirectoryServie.Object);
 
             Writer.Write(LogInfo);
         }
