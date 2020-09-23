@@ -8,6 +8,8 @@ namespace Log_Lite.LogWriter
 {
     public class ConsoleLogWriter : BaseLogWriter
     {
+        public ConsoleLogWriter() : this(new BasicLogFormatter(), null) { }
+
         public ConsoleLogWriter(ILogFormatter formatter, IEnumerable<LogLevel> allowedLogLevels = null)
             : base(formatter, allowedLogLevels) { }
 
