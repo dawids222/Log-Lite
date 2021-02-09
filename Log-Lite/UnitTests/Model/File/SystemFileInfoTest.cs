@@ -11,8 +11,8 @@ namespace UnitTests.Model.File
         private SystemFileInfo LogFileInfo { get; set; }
         private SystemFileInfo NonExistingFileInfo { get; set; }
 
-        private string TestLogFilePath { get; } = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Asset\\log.txt";
-        private string NonExistingLogFilePath { get; } = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Asset\\non_existing.txt";
+        private string TestLogFilePath { get; } = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Asset\\log.txt";
+        private string NonExistingLogFilePath { get; } = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Asset\\non_existing.txt";
 
         [TestInitialize]
         public void Before()
@@ -42,7 +42,7 @@ namespace UnitTests.Model.File
         {
             var creationDate = LogFileInfo.CreationTime;
 
-            Assert.AreEqual("21.09.2020 21:33:05", creationDate.ToString());
+            Assert.AreEqual(new FileInfo(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Asset\\log.txt").CreationTime.ToString(), creationDate.ToString());
         }
 
         [TestMethod]
