@@ -16,6 +16,7 @@ namespace ConsoleTest
         static void Main(string[] args)
         {
             var logger = CreateLogger();
+            logger.Debug("Halo?");
             logger.Info("Cześć");
             logger.Warning("Chyba");
             logger.Error("Logger");
