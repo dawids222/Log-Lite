@@ -28,6 +28,11 @@ namespace Log_Lite.Logger
             LogWriters = new List<ILogWriter>(logWriters);
         }
 
+        public void Debug(object message)
+        {
+            Log(message, LogLevel.DEBUG);
+        }
+
         public void Info(object message)
         {
             Log(message, LogLevel.INFO);

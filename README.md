@@ -40,6 +40,7 @@ var logger = new Logger(fileLogWriter, consoleLogWriter);
 
 ```CSharp
 // writing logs
+logger.Debug("MESSAGE");
 logger.Info("MESSAGE");
 logger.Warning("MESSAGE");
 logger.Error("MESSAGE");
