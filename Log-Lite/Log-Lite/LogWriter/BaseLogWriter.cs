@@ -8,8 +8,7 @@ namespace Log_Lite.LogWriter
 {
     public abstract class BaseLogWriter : ILogWriter
     {
-        protected static readonly IEnumerable<LogLevel> AllLogLevels =
-            new LogLevel[] { LogLevel.INFO, LogLevel.WARNING, LogLevel.ERROR, LogLevel.FATAL, };
+        protected static readonly IEnumerable<LogLevel> _allLogLevels = System.Enum.GetValues(typeof(LogLevel)).Cast<LogLevel>();
 
         private IEnumerable<LogLevel> AllowedLogLevels { get; }
         protected ILogFormatter Formatter { get; }
@@ -17,7 +16,7 @@ namespace Log_Lite.LogWriter
         public BaseLogWriter(ILogFormatter formatter, IEnumerable<LogLevel> allowedLogLevels = null)
         {
             Formatter = formatter;
-            AllowedLogLevels = allowedLogLevels ?? AllLogLevels;
+            AllowedLogLevels = allowedLogLevels ?? _allLogLevels;
         }
 
         public void Write(LogInfo info)

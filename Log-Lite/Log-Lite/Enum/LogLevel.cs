@@ -2,9 +2,10 @@
 {
     public enum LogLevel
     {
+        DEBUG,
         INFO,
         ERROR,
         WARNING,
-        FATAL
+        FATAL,
     }
 }
