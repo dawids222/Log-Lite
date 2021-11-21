@@ -74,12 +74,13 @@ var logger = new Logger(errorsFileLogWriter);
 // to keep log file small and useful we would want to archive it on some point
 var fileInfo = new SystemFileInfo("logs.txt");
 var checker = new SizeArchiveNecessityChecker(fileInfo, 1, MemoryUnit.MB);
-var archiver = new FileArchiver(fileInfo, "Archive", checker);
+var fileNameFormatter = new MillisecondsArchiveFileNameFormatter("json");
+var archiver = new FileArchiver(fileInfo, "Archive", checker, fileNameFormatter: fileNameFormatter);
 var fileLogWriter = FileLogWriter.Builder()
     .SetFileInfo(fileInfo)
     .SetFileArchiver(archiver)
     .Build();
-// now if logs.txt will have more than 1MB data it will be moved to Archive directory with name changed to current timestamp
+// now if logs.txt will have more than 1MB data it will be moved to Archive directory with name changed to current timestamp as milliseconds
 // new fresh logs.txt file will be created
 // log files can be also archived based on their age using TimeArchiveNecessityChecker
 ```

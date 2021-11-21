@@ -1,8 +1,8 @@
 ﻿using Log_Lite.FileArchive.Checker;
+using Log_Lite.FileArchive.Formatter;
 using Log_Lite.Model.File;
 using Log_Lite.Service.Directory;
 using Log_Lite.Service.File;
-using System;
 
 namespace Log_Lite.FileArchive.Archiver
 {
@@ -13,29 +13,24 @@ namespace Log_Lite.FileArchive.Archiver
         private IArchiveNecessityChecker Checker { get; }
         private IFileService FileService { get; }
         private IDirectoryService DirectoryService { get; }
+        private IArchiveFileNameFormatter FileNameFormatter { get; }
 
         private string ArchiveDirectoryPath { get => $"{FileInfo.DirectoryPath}/{ArchiveDirectoryName}"; }
 
         public FileArchiver(
             IFileInfo fileInfo,
             string archiveDirectoryName,
-            IArchiveNecessityChecker checker)
-            : this(fileInfo, archiveDirectoryName, checker,
-                  new SystemFileService(), new SystemDirectoryService())
-        { }
-
-        public FileArchiver(
-            IFileInfo fileInfo,
-            string archiveDirectoryName,
             IArchiveNecessityChecker checker,
-            IFileService fileService,
-            IDirectoryService directoryService)
+            IFileService fileService = null,
+            IDirectoryService directoryService = null,
+            IArchiveFileNameFormatter fileNameFormatter = null)
         {
             ArchiveDirectoryName = archiveDirectoryName;
             FileInfo = fileInfo;
             Checker = checker;
-            FileService = fileService;
-            DirectoryService = directoryService;
+            FileService = fileService ?? new SystemFileService();
+            DirectoryService = directoryService ?? new SystemDirectoryService();
+            FileNameFormatter = fileNameFormatter ?? new DateTimeArchiveFileNameFormatter();
         }
 
         public bool HaveToArchive()
@@ -54,8 +49,7 @@ namespace Log_Lite.FileArchive.Archiver
 
         private string CreateArchiveFilePath()
         {
-            var currentDateTime = DateTime.Now.ToString().Replace(':', '.');
-            return $"{ArchiveDirectoryPath}/{currentDateTime}.txt";
+            return $"{ArchiveDirectoryPath}/{FileNameFormatter.Format()}";
         }
     }
 }

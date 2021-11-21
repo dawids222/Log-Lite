@@ -1,6 +1,7 @@
 ﻿using Log_Lite.Enum;
 using Log_Lite.FileArchive.Archiver;
 using Log_Lite.FileArchive.Checker;
+using Log_Lite.FileArchive.Formatter;
 using Log_Lite.LogFormatter;
 using Log_Lite.Logger;
 using Log_Lite.LogWriter;
@@ -46,8 +47,9 @@ namespace ConsoleTest
         static ILogWriter CreateErrorsFileWriter()
         {
             var errorsFileInfo = new SystemFileInfo("errors.txt");
-            var errorsChecker = new SizeArchiveNecessityChecker(errorsFileInfo, 50, MemoryUnit.B);
-            var errorsArchiver = new FileArchiver(errorsFileInfo, "Archive_Errors", errorsChecker);
+            var errorsChecker = new SizeArchiveNecessityChecker(errorsFileInfo, 100, MemoryUnit.B);
+            var fileNameFormatter = new MillisecondsArchiveFileNameFormatter("json");
+            var errorsArchiver = new FileArchiver(errorsFileInfo, "Archive_Errors", errorsChecker, fileNameFormatter: fileNameFormatter);
             var logLevels = new LogLevel[] { LogLevel.ERROR, LogLevel.FATAL };
             return FileLogWriter.Builder()
                     .SetFileInfo(errorsFileInfo)
