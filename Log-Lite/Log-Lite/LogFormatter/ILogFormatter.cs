@@ -1,6 +1,6 @@
-﻿using Log_Lite.Model;
+﻿using LibLite.Log.Lite.Model;
 
-namespace Log_Lite.LogFormatter
+namespace LibLite.Log.Lite.LogFormatter
 {
     public interface ILogFormatter
     {

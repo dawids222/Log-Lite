@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30907.101
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Log-Lite", "Log-Lite\Log-Lite.csproj", "{7FB96F41-39A7-4ECC-A1AE-FB60DDA37D9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibLite.Log.Lite", "Log-Lite\LibLite.Log.Lite.csproj", "{7FB96F41-39A7-4ECC-A1AE-FB60DDA37D9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{6340962B-DDD6-4E9F-90C9-342D76F3DCFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibLite.Log.Lite.Playground", "ConsoleTest\LibLite.Log.Lite.Playground.csproj", "{6340962B-DDD6-4E9F-90C9-342D76F3DCFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{26200CFE-2011-41B6-9D15-F6ECCBFF58AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibLite.Log.Lite.Tests", "UnitTests\LibLite.Log.Lite.Tests.csproj", "{26200CFE-2011-41B6-9D15-F6ECCBFF58AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,10 +1,11 @@
-﻿using Log_Lite.Enum;
-using Log_Lite.LogFormatter;
-using Log_Lite.Model;
+﻿using LibLite.Log.Lite.Enum;
+using LibLite.Log.Lite.LogFormatter;
+using LibLite.Log.Lite.Model;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
-namespace Log_Lite.LogWriter
+namespace LibLite.Log.Lite.LogWriter
 {
     public abstract class BaseLogWriter : ILogWriter
     {
@@ -25,6 +26,14 @@ namespace Log_Lite.LogWriter
             WriteWhenAllowed(info);
         }
 
+        public Task WriteAsync(LogInfo info)
+        {
+            return !AllowedLogLevels.Contains(info.Level)
+                ? Task.CompletedTask
+                : WriteWhenAllowedAsync(info);
+        }
+
         protected abstract void WriteWhenAllowed(LogInfo info);
+        protected abstract Task WriteWhenAllowedAsync(LogInfo info);
     }
 }

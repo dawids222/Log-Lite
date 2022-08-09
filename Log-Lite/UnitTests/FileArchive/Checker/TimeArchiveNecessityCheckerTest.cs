@@ -1,10 +1,10 @@
-﻿using Log_Lite.Enum;
-using Log_Lite.FileArchive.Checker;
+﻿using LibLite.Log.Lite.Enum;
+using LibLite.Log.Lite.FileArchive.Checker;
+using LibLite.Log.Lite.Tests.Model.File;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using UnitTests.Model.File;
 
-namespace UnitTests.FileArchive.Checker
+namespace LibLite.Log.Lite.Tests.FileArchive.Checker
 {
     [TestClass]
     public class TimeArchiveNecessityCheckerTest

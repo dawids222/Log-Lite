@@ -1,12 +1,12 @@
-﻿using Log_Lite.FileArchive.Archiver;
-using Log_Lite.FileArchive.Checker;
-using Log_Lite.Model.File;
-using Log_Lite.Service.Directory;
-using Log_Lite.Service.File;
+﻿using LibLite.Log.Lite.FileArchive.Archiver;
+using LibLite.Log.Lite.FileArchive.Checker;
+using LibLite.Log.Lite.Model.File;
+using LibLite.Log.Lite.Service.Directory;
+using LibLite.Log.Lite.Service.File;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace UnitTests.FileArchive.Archiver
+namespace LibLite.Log.Lite.Tests.FileArchive.Archiver
 {
     [TestClass]
     public class FileArchiverTest

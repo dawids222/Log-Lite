@@ -1,17 +1,17 @@
-﻿using Log_Lite.Enum;
-using Log_Lite.FileArchive.Archiver;
-using Log_Lite.LogFormatter;
-using Log_Lite.LogWriter;
-using Log_Lite.Model;
-using Log_Lite.Model.File;
-using Log_Lite.Model.Invoker;
-using Log_Lite.Service.Directory;
-using Log_Lite.Service.File;
+﻿using LibLite.Log.Lite.Enum;
+using LibLite.Log.Lite.FileArchive.Archiver;
+using LibLite.Log.Lite.LogFormatter;
+using LibLite.Log.Lite.LogWriter;
+using LibLite.Log.Lite.Model;
+using LibLite.Log.Lite.Model.File;
+using LibLite.Log.Lite.Model.Invoker;
+using LibLite.Log.Lite.Service.Directory;
+using LibLite.Log.Lite.Service.File;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using UnitTests.Model.File;
+using LibLite.Log.Lite.Tests.Model.File;
 
-namespace UnitTests.LogWriter
+namespace LibLite.Log.Lite.Tests.LogWriter
 {
     [TestClass]
     public class FileLogWriterTest

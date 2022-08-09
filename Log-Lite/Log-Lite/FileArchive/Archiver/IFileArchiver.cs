@@ -1,9 +1,11 @@
-﻿using Log_Lite.FileArchive.Checker;
+﻿using LibLite.Log.Lite.FileArchive.Checker;
+using System.Threading.Tasks;
 
-namespace Log_Lite.FileArchive.Archiver
+namespace LibLite.Log.Lite.FileArchive.Archiver
 {
     public interface IFileArchiver : IArchiveNecessityChecker
     {
         void Archive();
+        Task ArchiveAsync();
     }
 }

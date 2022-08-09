@@ -1,4 +1,4 @@
-﻿namespace Log_Lite.Exception
+﻿namespace LibLite.Log.Lite.Exception
 {
     public class InvokerNotFoundExpection : System.Exception
     {

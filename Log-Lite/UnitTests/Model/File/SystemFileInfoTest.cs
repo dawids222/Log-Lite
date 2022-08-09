@@ -1,9 +1,9 @@
-﻿using Log_Lite.Model.File;
+﻿using LibLite.Log.Lite.Model.File;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 
-namespace UnitTests.Model.File
+namespace LibLite.Log.Lite.Tests.Model.File
 {
     [TestClass]
     public class SystemFileInfoTest

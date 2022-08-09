@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Log_Lite.Model.File
+namespace LibLite.Log.Lite.Model.File
 {
     public class SystemFileInfo : IFileInfo
     {

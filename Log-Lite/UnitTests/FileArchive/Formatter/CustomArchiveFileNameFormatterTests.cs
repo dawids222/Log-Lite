@@ -1,7 +1,7 @@
-﻿using Log_Lite.FileArchive.Formatter;
+﻿using LibLite.Log.Lite.FileArchive.Formatter;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTests.FileArchive.Formatter
+namespace LibLite.Log.Lite.Tests.FileArchive.Formatter
 {
     [TestClass]
     public class CustomArchiveFileNameFormatterTests

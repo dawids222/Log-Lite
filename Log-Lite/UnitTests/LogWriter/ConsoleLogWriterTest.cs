@@ -1,13 +1,13 @@
-﻿using Log_Lite.Enum;
-using Log_Lite.LogFormatter;
-using Log_Lite.LogWriter;
-using Log_Lite.Model;
-using Log_Lite.Model.Invoker;
+﻿using LibLite.Log.Lite.Enum;
+using LibLite.Log.Lite.LogFormatter;
+using LibLite.Log.Lite.LogWriter;
+using LibLite.Log.Lite.Model;
+using LibLite.Log.Lite.Model.Invoker;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 
-namespace UnitTests.LogWriter
+namespace LibLite.Log.Lite.Tests.LogWriter
 {
     [TestClass]
     public class ConsoleLogWriterTest

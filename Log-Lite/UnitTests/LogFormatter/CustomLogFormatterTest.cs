@@ -1,10 +1,10 @@
-﻿using Log_Lite.Enum;
-using Log_Lite.LogFormatter;
-using Log_Lite.Model;
-using Log_Lite.Model.Invoker;
+﻿using LibLite.Log.Lite.Enum;
+using LibLite.Log.Lite.LogFormatter;
+using LibLite.Log.Lite.Model;
+using LibLite.Log.Lite.Model.Invoker;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTests.LogFormatter
+namespace LibLite.Log.Lite.Tests.LogFormatter
 {
     [TestClass]
     public class CustomLogFormatterTest

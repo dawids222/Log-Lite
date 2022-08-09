@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <RootNamespace>Log_Lite</RootNamespace>
+	  <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>LibLite.Log.Lite</RootNamespace>
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 

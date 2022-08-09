@@ -1,8 +1,8 @@
-﻿using Log_Lite.LogFormatter;
-using Log_Lite.Logger;
-using Log_Lite.LogWriter;
+﻿using LibLite.Log.Lite.LogFormatter;
+using LibLite.Log.Lite.Logger;
+using LibLite.Log.Lite.LogWriter;
 
-namespace ConsoleTest
+namespace LibLite.Log.Lite.Playground
 {
     public static class MyLogger
     {
@@ -26,7 +26,7 @@ namespace ConsoleTest
             var formatter = new BasicLogFormatter();
             var consoleWriter = new ConsoleLogWriter(formatter);
 
-            var logger = new Logger(consoleWriter);
+            var logger = new Logger.Logger(consoleWriter);
 
             return logger;
         }

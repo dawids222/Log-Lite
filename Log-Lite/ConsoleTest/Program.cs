@@ -1,28 +1,28 @@
-﻿using Log_Lite.Enum;
-using Log_Lite.FileArchive.Archiver;
-using Log_Lite.FileArchive.Checker;
-using Log_Lite.FileArchive.Formatter;
-using Log_Lite.LogFormatter;
-using Log_Lite.Logger;
-using Log_Lite.LogWriter;
-using Log_Lite.Model.File;
+﻿using LibLite.Log.Lite.Enum;
+using LibLite.Log.Lite.FileArchive.Archiver;
+using LibLite.Log.Lite.FileArchive.Checker;
+using LibLite.Log.Lite.FileArchive.Formatter;
+using LibLite.Log.Lite.LogFormatter;
+using LibLite.Log.Lite.Logger;
+using LibLite.Log.Lite.LogWriter;
+using LibLite.Log.Lite.Model.File;
 using System;
 using System.Threading;
 
-namespace ConsoleTest
+namespace LibLite.Log.Lite.Playground
 {
     class Program
     {
         static void Main(string[] args)
         {
             var logger = CreateLogger();
-            logger.Debug("Halo?");
-            logger.Info("Cześć");
-            logger.Warning("Chyba");
-            logger.Error("Logger");
-            logger.Fatal("Działa");
+            logger.DebugAsync("Halo?");
+            logger.InfoAsync("Cześć");
+            logger.WarningAsync("Chyba");
+            logger.ErrorAsync("Logger");
+            logger.FatalAsync("Działa");
             Thread.Sleep(6000);
-            logger.Fatal("Powienien się zrobić archive");
+            logger.FatalAsync("Powienien się zrobić archive");
             Console.ReadKey();
         }
 
@@ -31,7 +31,7 @@ namespace ConsoleTest
             var fileWriter = CreateBasicFileWriter();
             var errorFileWriter = CreateErrorsFileWriter();
             var consoleWriter = CreateBasicConsoleWriter();
-            return new Logger(fileWriter, errorFileWriter, consoleWriter);
+            return new Logger.Logger(fileWriter, errorFileWriter, consoleWriter);
         }
 
         static ILogWriter CreateBasicFileWriter()

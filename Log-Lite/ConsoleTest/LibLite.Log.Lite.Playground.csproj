@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Log-Lite\Log-Lite.csproj" />
+    <ProjectReference Include="..\Log-Lite\LibLite.Log.Lite.csproj" />
   </ItemGroup>
 
 </Project>

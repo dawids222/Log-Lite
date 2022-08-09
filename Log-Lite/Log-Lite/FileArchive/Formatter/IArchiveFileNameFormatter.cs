@@ -1,4 +1,4 @@
-﻿namespace Log_Lite.FileArchive.Formatter
+﻿namespace LibLite.Log.Lite.FileArchive.Formatter
 {
     public interface IArchiveFileNameFormatter
     {

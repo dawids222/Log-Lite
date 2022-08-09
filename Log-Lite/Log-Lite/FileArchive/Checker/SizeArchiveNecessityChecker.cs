@@ -1,7 +1,7 @@
-﻿using Log_Lite.Enum;
-using Log_Lite.Model.File;
+﻿using LibLite.Log.Lite.Enum;
+using LibLite.Log.Lite.Model.File;
 
-namespace Log_Lite.FileArchive.Checker
+namespace LibLite.Log.Lite.FileArchive.Checker
 {
     public class SizeArchiveNecessityChecker : BaseArchiveNecessityChecker
     {

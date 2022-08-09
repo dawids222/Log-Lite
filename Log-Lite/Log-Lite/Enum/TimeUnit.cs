@@ -1,4 +1,4 @@
-﻿namespace Log_Lite.Enum
+﻿namespace LibLite.Log.Lite.Enum
 {
     public enum TimeUnit
     {

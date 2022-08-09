@@ -1,7 +1,7 @@
-﻿using Log_Lite.Enum;
-using Log_Lite.Model.Invoker;
+﻿using LibLite.Log.Lite.Enum;
+using LibLite.Log.Lite.Model.Invoker;
 
-namespace Log_Lite.Model
+namespace LibLite.Log.Lite.Model
 {
     public class LogInfo
     {

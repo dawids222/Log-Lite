@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Log_Lite.Model.File
+namespace LibLite.Log.Lite.Model.File
 {
     public interface IFileInfo
     {

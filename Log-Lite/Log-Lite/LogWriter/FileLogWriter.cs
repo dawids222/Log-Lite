@@ -1,14 +1,15 @@
-﻿using Log_Lite.Builder;
-using Log_Lite.Enum;
-using Log_Lite.FileArchive.Archiver;
-using Log_Lite.LogFormatter;
-using Log_Lite.Model;
-using Log_Lite.Model.File;
-using Log_Lite.Service.Directory;
-using Log_Lite.Service.File;
+﻿using LibLite.Log.Lite.Builder;
+using LibLite.Log.Lite.Enum;
+using LibLite.Log.Lite.FileArchive.Archiver;
+using LibLite.Log.Lite.LogFormatter;
+using LibLite.Log.Lite.Model;
+using LibLite.Log.Lite.Model.File;
+using LibLite.Log.Lite.Service.Directory;
+using LibLite.Log.Lite.Service.File;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace Log_Lite.LogWriter
+namespace LibLite.Log.Lite.LogWriter
 {
     public class FileLogWriter : BaseLogWriter
     {
@@ -73,6 +74,34 @@ namespace Log_Lite.LogWriter
         {
             var log = Formatter.Format(info);
             FileService.Append(FilePath, log);
+        }
+
+        protected override async Task WriteWhenAllowedAsync(LogInfo info)
+        {
+            await HandleArchivizationAsync();
+            await HandleDirectoryExistanceAsync();
+            await HandleLoggingAsync(info);
+        }
+
+        private Task HandleArchivizationAsync()
+        {
+            if (FileArchiver?.HaveToArchive() != true)
+                return Task.CompletedTask;
+            return FileArchiver?.ArchiveAsync();
+        }
+
+        private async Task HandleDirectoryExistanceAsync()
+        {
+            if (!await DirectoryService.ExistsAsync(FileInfo.DirectoryPath))
+            {
+                await DirectoryService.CreateAsync(FileInfo.DirectoryPath);
+            }
+        }
+
+        private async Task HandleLoggingAsync(LogInfo info)
+        {
+            var log = Formatter.Format(info);
+            await FileService.AppendAsync(FilePath, log);
         }
 
         public static FileLogWriterBuilder Builder()

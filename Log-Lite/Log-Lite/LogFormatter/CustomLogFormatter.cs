@@ -1,7 +1,7 @@
-﻿using Log_Lite.Model;
+﻿using LibLite.Log.Lite.Model;
 using System;
 
-namespace Log_Lite.LogFormatter
+namespace LibLite.Log.Lite.LogFormatter
 {
     public class CustomLogFormatter : ILogFormatter
     {

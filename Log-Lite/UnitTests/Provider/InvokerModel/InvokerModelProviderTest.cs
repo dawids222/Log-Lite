@@ -1,10 +1,10 @@
-﻿using Log_Lite.Exception;
-using Log_Lite.Model.Invoker;
-using Log_Lite.Provider.Invoker;
+﻿using LibLite.Log.Lite.Exception;
+using LibLite.Log.Lite.Model.Invoker;
+using LibLite.Log.Lite.Provider.Invoker;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace UnitTests.Provider.InvokerModel
+namespace LibLite.Log.Lite.Tests.Provider.InvokerModel
 {
     [TestClass]
     public class InvokerModelProviderTest
@@ -16,7 +16,7 @@ namespace UnitTests.Provider.InvokerModel
 
             var invokerModel = invokerModelProvider.GetCurrentInvoker();
 
-            var expected = new Log_Lite.Model.Invoker.InvokerModel(
+            var expected = new Lite.Model.Invoker.InvokerModel(
                 "InvokerModelProviderTest",
                 "ReturnsInvokerDirectlyFromFunction"
             );
@@ -31,7 +31,7 @@ namespace UnitTests.Provider.InvokerModel
             Func<IInvokerModel> func = () => invokerModelProvider.GetCurrentInvoker();
             var invokerModel = func();
 
-            var expected = new Log_Lite.Model.Invoker.InvokerModel(
+            var expected = new Lite.Model.Invoker.InvokerModel(
                 "InvokerModelProviderTest",
                 "ReturnsInvokerFromAnotherFunction"
             );

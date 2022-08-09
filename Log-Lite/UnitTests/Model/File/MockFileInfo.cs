@@ -1,7 +1,7 @@
-﻿using Log_Lite.Model.File;
+﻿using LibLite.Log.Lite.Model.File;
 using System;
 
-namespace UnitTests.Model.File
+namespace LibLite.Log.Lite.Tests.Model.File
 {
     internal class MockFileInfo : IFileInfo
     {

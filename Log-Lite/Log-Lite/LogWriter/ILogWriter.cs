@@ -1,9 +1,11 @@
-﻿using Log_Lite.Model;
+﻿using LibLite.Log.Lite.Model;
+using System.Threading.Tasks;
 
-namespace Log_Lite.LogWriter
+namespace LibLite.Log.Lite.LogWriter
 {
     public interface ILogWriter
     {
         void Write(LogInfo info);
+        Task WriteAsync(LogInfo info);
     }
 }

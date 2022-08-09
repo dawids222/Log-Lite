@@ -1,10 +1,11 @@
-﻿using Log_Lite.FileArchive.Checker;
-using Log_Lite.FileArchive.Formatter;
-using Log_Lite.Model.File;
-using Log_Lite.Service.Directory;
-using Log_Lite.Service.File;
+﻿using LibLite.Log.Lite.FileArchive.Checker;
+using LibLite.Log.Lite.FileArchive.Formatter;
+using LibLite.Log.Lite.Model.File;
+using LibLite.Log.Lite.Service.Directory;
+using LibLite.Log.Lite.Service.File;
+using System.Threading.Tasks;
 
-namespace Log_Lite.FileArchive.Archiver
+namespace LibLite.Log.Lite.FileArchive.Archiver
 {
     public class FileArchiver : IFileArchiver
     {
@@ -45,6 +46,15 @@ namespace Log_Lite.FileArchive.Archiver
 
             var archiveFilePath = CreateArchiveFilePath();
             FileService.Move(FileInfo.Path, archiveFilePath);
+        }
+
+        public async Task ArchiveAsync()
+        {
+            if (!await DirectoryService.ExistsAsync(ArchiveDirectoryPath))
+                await DirectoryService.CreateAsync(ArchiveDirectoryPath);
+
+            var archiveFilePath = CreateArchiveFilePath();
+            await FileService.MoveAsync(FileInfo.Path, archiveFilePath);
         }
 
         private string CreateArchiveFilePath()

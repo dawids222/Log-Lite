@@ -1,13 +1,13 @@
-﻿using Log_Lite.Enum;
-using Log_Lite.FileArchive.Archiver;
-using Log_Lite.LogFormatter;
-using Log_Lite.LogWriter;
-using Log_Lite.Model.File;
-using Log_Lite.Service.Directory;
-using Log_Lite.Service.File;
+﻿using LibLite.Log.Lite.Enum;
+using LibLite.Log.Lite.FileArchive.Archiver;
+using LibLite.Log.Lite.LogFormatter;
+using LibLite.Log.Lite.LogWriter;
+using LibLite.Log.Lite.Model.File;
+using LibLite.Log.Lite.Service.Directory;
+using LibLite.Log.Lite.Service.File;
 using System.Collections.Generic;
 
-namespace Log_Lite.Builder
+namespace LibLite.Log.Lite.Builder
 {
     public class FileLogWriterBuilder
     {

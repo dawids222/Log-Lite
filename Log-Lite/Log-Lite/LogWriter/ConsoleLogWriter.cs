@@ -1,10 +1,11 @@
-﻿using Log_Lite.Enum;
-using Log_Lite.LogFormatter;
-using Log_Lite.Model;
+﻿using LibLite.Log.Lite.Enum;
+using LibLite.Log.Lite.LogFormatter;
+using LibLite.Log.Lite.Model;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace Log_Lite.LogWriter
+namespace LibLite.Log.Lite.LogWriter
 {
     public class ConsoleLogWriter : BaseLogWriter
     {
@@ -17,6 +18,11 @@ namespace Log_Lite.LogWriter
         {
             var log = Formatter.Format(info);
             Console.WriteLine(log);
+        }
+
+        protected override Task WriteWhenAllowedAsync(LogInfo info)
+        {
+            return Task.Run(() => WriteWhenAllowed(info));
         }
     }
 }

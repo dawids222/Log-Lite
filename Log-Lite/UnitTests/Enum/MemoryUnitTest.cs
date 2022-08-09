@@ -1,8 +1,8 @@
-﻿using Log_Lite.Enum;
+﻿using LibLite.Log.Lite.Enum;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace UnitTests.Enum
+namespace LibLite.Log.Lite.Tests.Enum
 {
     [TestClass]
     public class MemoryUnitTest
